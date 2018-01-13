@@ -98,21 +98,21 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                             <h2 className="mb20 text-left">
                                                 <small>Prescription(s) for {selectedPatient}:</small>
                                             </h2>
-                                            <div className="border-bottom border-top ptb10">
-                                                <Button size="small" simple block className="mb10 dblock text-left">Start date: <strong>10/22/2018</strong> , End date: <strong>till consumed</strong></Button>
-                                                
-                                                <Toolbar block flush flex textCenter>
-                                                    <Button outline block> <strong>Advil</strong> - 200mg - Pills</Button>
-                                                    <Button icon="autorenew" materialIcon block>Refill</Button>
-                                                </Toolbar>
+                                           
+                                            <div className="border-bottom mb10 border-all pt10 text-left">
+                                                <div className="ps10"><strong>Advil</strong> - 200mg - Pills</div>
+                                                <div className="ps10 mb10"><small>10/22/2018</small></div>
+                                                <Toolbar noRadius block>
+                                                    <Button block icon="autorenew" materialIcon>Refill</Button>   
+                                                </Toolbar>                                        
                                             </div>
-                                            <div className="border-bottom ptb10">
-                                                <Button size="small" simple block className="mb10 dblock text-left">Start date: <strong>10/22/2018</strong> , End date: <strong>till consumed</strong></Button>
-                                                
-                                                <Toolbar block flush flex textCenter>
-                                                    <Button outline block> <strong>Zoloft</strong> - 10oz - Bottle</Button>
-                                                    <Button icon="autorenew" materialIcon block>Refill</Button>
-                                                </Toolbar>
+
+                                            <div className="border-bottom border-all pt10 text-left">
+                                                <div className="ps10"><strong>Zoloft</strong> - 20mg - Bottle</div>
+                                                <div className="ps10 mb10"><small>1/2/2018</small></div>
+                                                <Toolbar noRadius block>
+                                                    <Button block icon="autorenew" materialIcon>Refill</Button>   
+                                                </Toolbar>                                        
                                             </div>
                                         </div>
                                     </Layer>
@@ -121,22 +121,20 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                         <div className="w400px center-width">
                                             <h2 className="mb20 text-center">
                                                 <small>Create a prescription:</small>
-                                            </h2>
+                                              </h2>
 
-                                            <Toolbar block className="mb20" flush>
-                                                <Dropdown hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Advil', 'Omprezole', 'Cadvil', 'Zelle']} />
-                                                <Input className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
-                                                <Dropdown theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
+                                            <Toolbar block flex className="mb20 w400px" flush>
+                                                <Dropdown block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Advil', 'Omprezole', 'Cadvil', 'Zelle']} />
+                                                <Input block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
+                                                <Dropdown block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
                                             </Toolbar>
     
-                                            {selectedIssueUnit ? <DatePicker mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20 w300px" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
+                                            {selectedIssueUnit ? <DatePicker mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
                                             {selectedStartDate ? <Toolbar flex spacing block><Button block theme={refill ? "primary" : "default"} onClick={this.toggleRefill.bind(this)} checked={refill} advanced size="large">Refillable</Button><Button block advanced theme={hasEndDate ? "primary" : "default"} checked={hasEndDate} size="large" onClick={this.toggleEndDate.bind(this)}>End date</Button></Toolbar>: null}
                                             {hasEndDate ? <DatePicker mobile size={"large"} className="mtb20 w300px" title={'End Date'} />: null}
-                                            {selectedStartDate ? <Button onClick={this.gotoSlideIndex.bind(this, 3)} outline theme="error" size={"large"} className="mtb20 w300px">Submit Prescription</Button>: null}                                
-                                        
-                                            {selectedStartDate ? <Input cols={400} rows={400} className="mb20" type="textarea" placeholder="Inscription" />: null}                                
-
-                                            {selectedStartDate ? <Input cols={400} rows={400} type="textarea" placeholder="Subscription"  />: null}                                
+                                            {selectedStartDate ? <Input block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
+                                            {selectedStartDate ? <Button onClick={this.gotoSlideIndex.bind(this, 3)} outline theme="error" size={"large"} className="mtb20 w300px">Submit Prescription</Button>: null}
+                                
                                         
                                         </div>
                                     </Layer>
@@ -256,7 +254,22 @@ let arrayOfNames = [
 
 
 
+// <div className="border-bottom border-top ptb10">
+// <Button size="small" simple block className="mb10 dblock text-left">Start date: <strong>10/22/2018</strong> , End date: <strong>till consumed</strong></Button>
 
+// <Toolbar block flush flex textCenter>
+//     <Button outline block> <strong>Advil</strong> - 200mg - Pills</Button>
+//     <Button icon="autorenew" materialIcon block>Refill</Button>
+// </Toolbar>
+// </div>
+// <div className="border-bottom ptb10">
+// <Button size="small" simple block className="mb10 dblock text-left">Start date: <strong>10/22/2018</strong> , End date: <strong>till consumed</strong></Button>
+
+// <Toolbar block flush flex textCenter>
+//     <Button outline block> <strong>Zoloft</strong> - 10oz - Bottle</Button>
+//     <Button icon="autorenew" materialIcon block>Refill</Button>
+// </Toolbar>
+// </div>
 
 
 
