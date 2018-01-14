@@ -13,7 +13,6 @@ interface Prescription {
     inscription: string;
 }
 
-
 export class PrescribeStore implements IPrescribeStore {
     
     @observable slideIndex : number = 0;
@@ -34,7 +33,8 @@ export class PrescribeStore implements IPrescribeStore {
     //
 
     @observable prescriptions : Prescription[] = [];
-    @observable prescriptionComplete: boolean : false;
+    @observable prescriptionComplete: boolean = false;
+    @observable selectStartDateOpen : boolean = false;
 
     test = autorun(()=>{
         if (!!this.selectedDrug && !this.selectedIssueUnit) {
@@ -64,6 +64,9 @@ export class PrescribeStore implements IPrescribeStore {
 
     selectStartDate(date) {
         this.selectedStartDate = date;
+        setTimeout(() => {
+            this.selectStartDateOpen = false;         
+        }, 300);
     }
 
     selectEndDate(date) {
@@ -107,7 +110,6 @@ export class PrescribeStore implements IPrescribeStore {
         this.prescriptions.push(prescription);
 
         setTimeout(() => {
-            console.log('reset form and show success');
             self.prescriptionComplete = true;
             self.resetPrescriptionForm();
             this.gotoSlideIndex(0);
@@ -127,6 +129,10 @@ export class PrescribeStore implements IPrescribeStore {
         this.refill = false;
         this.selectedPatient = '';
         this.selectedInscription = '';
+    }
+
+    toggleStartDateDropdown(){
+        this.selectStartDateOpen = !this.selectStartDateOpen;
     }
 }
 
