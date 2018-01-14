@@ -97,14 +97,14 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                 </h2>
                                 <Table focusOnMount={selectedPatient === ''} searchableKeys={['name.first']} searchTitle="Search by Name or ID" onRowSelect={this.selectPatient.bind(this)} rowIsSelectable="single" className="h100" hideHeader fill flex hideFooter dataSource={arrayOfNames} columns={[{name: 'name.first', template: columnsTemplate}]} pageSize={arrayOfNames.length} />
                             </Layer>
-                            <Open className="border-top" if={selectedPatient !== ''} openToHeight={'86px'}>
+                            <Open className="border-top ps10" if={selectedPatient !== ''} openToHeight={'86px'}>
                                 <Button className="w400px center-width mtb20" onClick={this.gotoSlideIndex.bind(this, 2)} outline theme="error" size={"large"}>Prescribe for {selectedPatient}</Button>
                             </Open>
                         </Layer>
-                        <Layer fill flexCenter>
+                        <Layer fill flexCenter scrollY>
 
                                 <Wizard fill slideIndex={prescribeIndex}>
-                                    <Layer flexCenter fill>
+                                    <Layer flexCenter fill className="p10">
                                         <div className="w400px center-width">
                                             <Button onClick={this.gotoPrescribeIndex.bind(this, 1)} className="mb20" outline block theme="error" size="large" icon="plus">Create new prescription</Button>
 
@@ -130,7 +130,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                         </div>
                                     </Layer>
 
-                                    <Layer fill flexCenter>
+                                    <Layer fill flexCenter className="p10">
                                         <div className="w500px center-width">
                                               
                                             <i className="material-icons super-xl mb20 floatL">highlight</i>
@@ -175,12 +175,12 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                         </Layer>
                     </Wizard> 
                 </Layer>
-                <Layer className="p10 border-top w1000px center-width">
+                <Layer className="p10 dark border-top w100 center-width">
                     <Stepper stepIndex={prescribeStore.slideIndex}>
-                        <Button advanced checked={prescribeStore.slideIndex === 0} onClick={this.gotoSlideIndex.bind(this, 0)} outline size="small">Intro</Button>
-                        <Button advanced checked={prescribeStore.slideIndex === 1} onClick={this.gotoSlideIndex.bind(this, 1)} outline size="small">Assign</Button>
-                        <Button advanced checked={prescribeStore.slideIndex === 2} onClick={this.gotoSlideIndex.bind(this, 2)} outline size="small">Prescription</Button>
-                        <Button advanced checked={prescribeStore.slideIndex === 3} onClick={this.gotoSlideIndex.bind(this, 3)} outline size="small">Confirm</Button>
+                        <Button advanced checked={prescribeStore.slideIndex === 0} onClick={this.gotoSlideIndex.bind(this, 0)} simple size="small">Intro</Button>
+                        <Button advanced checked={prescribeStore.slideIndex === 1} onClick={this.gotoSlideIndex.bind(this, 1)} simple size="small">Assign</Button>
+                        <Button advanced checked={prescribeStore.slideIndex === 2} onClick={this.gotoSlideIndex.bind(this, 2)} simple size="small">Prescription</Button>
+                        <Button advanced checked={prescribeStore.slideIndex === 3} onClick={this.gotoSlideIndex.bind(this, 3)} simple size="small">Confirm</Button>
                     </Stepper>
                 </Layer>
             </Layer>
