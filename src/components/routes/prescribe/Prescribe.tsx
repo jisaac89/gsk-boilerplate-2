@@ -48,6 +48,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         prescribeStore.gotoPrescribeIndex(index);
     }
 
+    updateInscription(inscription){
+        prescribeStore.updateInscription(inscription);
+    }
+
     render() {
 
         let {formIndex, selectedDrug, prescribeIndex, selectedIssueUnit,selectedPatient, selectedStartDate, hasEndDate, refill} = prescribeStore;
@@ -129,13 +133,12 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                                 <Dropdown block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
                                             </Toolbar>
     
-                                            {selectedIssueUnit ? <DatePicker mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
+                                            {selectedIssueUnit ? <DatePicker block mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
                                             {selectedStartDate ? <Toolbar flex spacing block><Button block theme={refill ? "primary" : "default"} onClick={this.toggleRefill.bind(this)} checked={refill} advanced size="large">Refillable</Button><Button block advanced theme={hasEndDate ? "primary" : "default"} checked={hasEndDate} size="large" onClick={this.toggleEndDate.bind(this)}>End date</Button></Toolbar>: null}
                                             {hasEndDate ? <DatePicker mobile size={"large"} className="mtb20 w300px" title={'End Date'} />: null}
-                                            {selectedStartDate ? <Input block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
-                                            {selectedStartDate ? <Button onClick={this.gotoSlideIndex.bind(this, 3)} outline theme="error" size={"large"} className="mtb20 w300px">Submit Prescription</Button>: null}
+                                            {selectedStartDate ? <Input onChange={this.updateInscription.bind(this)} block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
+                                            {selectedStartDate ? <Button block onClick={this.gotoSlideIndex.bind(this, 3)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
                                 
-                                        
                                         </div>
                                     </Layer>
                                 </Wizard>

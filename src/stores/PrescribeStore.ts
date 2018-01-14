@@ -9,7 +9,7 @@ export class PrescribeStore implements IPrescribeStore {
     @observable formIndex : number = 0;
     @observable prescribeIndex : number = 0;
 
-    //form
+    //Inscription form
 
     @observable selectedDrug : any = null;
     @observable selectedIssueUnit : any = null;
@@ -17,6 +17,7 @@ export class PrescribeStore implements IPrescribeStore {
     @observable hasEndDate : boolean = false;
     @observable refill : boolean = false;
     @observable selectedPatient : string = '';
+    @observable selectedInscription : string = '';
 
     test = autorun(()=>{
         if (!!this.selectedDrug && !this.selectedIssueUnit) {
@@ -62,6 +63,10 @@ export class PrescribeStore implements IPrescribeStore {
 
     gotoPrescribeIndex(index : number) {
         this.prescribeIndex = index;
+    }
+
+    updateInscription(inscription){
+        this.selectedInscription = inscription;
     }
 }
 
