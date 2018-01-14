@@ -1,5 +1,6 @@
 import {observable, computed, autorun} from 'mobx';
 
+import {appStore} from '../stores/_GlobalStore';
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
 
 interface Prescription {
@@ -32,7 +33,8 @@ export class PrescribeStore implements IPrescribeStore {
 
     //
 
-    @observable prescriptions : Prescription[] = []
+    @observable prescriptions : Prescription[] = [];
+    @observable prescriptionComplete: boolean : false;
 
     test = autorun(()=>{
         if (!!this.selectedDrug && !this.selectedIssueUnit) {
@@ -90,6 +92,8 @@ export class PrescribeStore implements IPrescribeStore {
 
     confirmPrescription(){
 
+        const self = this;
+
         let prescription = {
             drug : this.selectedDrug,
             issueUnit: this.selectedIssueUnit,
@@ -104,9 +108,25 @@ export class PrescribeStore implements IPrescribeStore {
 
         setTimeout(() => {
             console.log('reset form and show success');
+            self.prescriptionComplete = true;
+            self.resetPrescriptionForm();
+            this.gotoSlideIndex(0);
+            this.gotoPrescribeIndex(0);
+            this.gotoFormIndex(0);
+            appStore.toggleMenu();
         }, 6000);
 
-        console.log(this.prescriptions)
+    }
+
+    resetPrescriptionForm(){
+        this.selectedDrug = '';
+        this.selectedIssueUnit = '';
+        this.selectedStartDate = null;
+        this.selectedEndDate = null;
+        this.hasEndDate = false;
+        this.refill = false;
+        this.selectedPatient = '';
+        this.selectedInscription = '';
     }
 }
 

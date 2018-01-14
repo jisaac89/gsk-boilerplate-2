@@ -12,4 +12,5 @@ export interface IPrescribeStore{
     gotoPrescribeIndex(index: number): void;
     updateInscription(inscription: string): void;
     confirmPrescription(): void;
+    resetPrescriptionForm(): void;
 }

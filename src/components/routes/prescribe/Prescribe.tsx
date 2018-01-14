@@ -138,7 +138,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
     
                                             {selectedIssueUnit ? <DatePicker block mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
                                             {selectedStartDate ? <Toolbar flex spacing block><Button block theme={refill ? "primary" : "default"} onClick={this.toggleRefill.bind(this)} checked={refill} advanced size="large">Refillable</Button><Button block advanced theme={hasEndDate ? "primary" : "default"} checked={hasEndDate} size="large" onClick={this.toggleEndDate.bind(this)}>End date</Button></Toolbar>: null}
-                                            {hasEndDate ? <DatePicker mobile size={"large"} className="mtb20 w300px" title={'End Date'} />: null}
+                                            {hasEndDate ? <DatePicker block mobile size={"large"} className="mtb20 w300px" title={'End Date'} />: null}
                                             {selectedStartDate ? <Input onChange={this.updateInscription.bind(this)} block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
                                             {selectedStartDate ? <Button block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
                                 
