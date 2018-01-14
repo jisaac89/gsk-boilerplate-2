@@ -14,6 +14,7 @@ export class PrescribeStore implements IPrescribeStore {
     @observable selectedDrug : any = null;
     @observable selectedIssueUnit : any = null;
     @observable selectedStartDate : Date = null;
+    @observable selectedEndDate : Date = null;
     @observable hasEndDate : boolean = false;
     @observable refill : boolean = false;
     @observable selectedPatient : string = '';
@@ -47,6 +48,10 @@ export class PrescribeStore implements IPrescribeStore {
 
     selectStartDate(date) {
         this.selectedStartDate = date;
+    }
+
+    selectEndDate(date) {
+        this.selectedEndDate = date;
     }
 
     toggleEndDate(){
