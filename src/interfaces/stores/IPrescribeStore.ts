@@ -11,4 +11,5 @@ export interface IPrescribeStore{
     selectPatient(patient: any): void;
     gotoPrescribeIndex(index: number): void;
     updateInscription(inscription: string): void;
+    confirmPrescription(): void;
 }

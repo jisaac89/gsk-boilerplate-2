@@ -2,6 +2,16 @@ import {observable, computed, autorun} from 'mobx';
 
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
 
+interface Prescription {
+    drug: string;
+    issueUnit: string;
+    startDate: Date;
+    endDate: Date;
+    refill : boolean;
+    patient: string;
+    inscription: string;
+}
+
 
 export class PrescribeStore implements IPrescribeStore {
     
@@ -9,7 +19,7 @@ export class PrescribeStore implements IPrescribeStore {
     @observable formIndex : number = 0;
     @observable prescribeIndex : number = 0;
 
-    //Inscription form
+    //Inscription Object
 
     @observable selectedDrug : any = null;
     @observable selectedIssueUnit : any = null;
@@ -19,6 +29,10 @@ export class PrescribeStore implements IPrescribeStore {
     @observable refill : boolean = false;
     @observable selectedPatient : string = '';
     @observable selectedInscription : string = '';
+
+    //
+
+    @observable prescriptions : Prescription[] = []
 
     test = autorun(()=>{
         if (!!this.selectedDrug && !this.selectedIssueUnit) {
@@ -72,6 +86,23 @@ export class PrescribeStore implements IPrescribeStore {
 
     updateInscription(inscription){
         this.selectedInscription = inscription;
+    }
+
+    confirmPrescription(){
+
+        let prescription = {
+            drug : this.selectedDrug,
+            issueUnit: this.selectedIssueUnit,
+            startDate: this.selectedStartDate,
+            endDate: this.selectedEndDate,
+            refill : this.refill,
+            patient : this.selectedPatient,
+            inscription : this.selectedInscription
+        }
+
+        this.prescriptions.push(prescription);
+
+        console.log(this.prescriptions)
     }
 }
 
