@@ -20,10 +20,11 @@ export default class Header extends React.Component<any, any> {
     render() {
         return (
             <Layer>
-                <Toolbar flex block textCenter flush className="p10">
+                <Toolbar flex block textCenter spacing className="p10">
                     <Button materialIcon simple icon={"menu"} onClick={this.toggleMenu.bind(this)}>
-
                     </Button>   
+                    <Button materialIcon simple icon={"album"} onClick={this.toggleNightmode.bind(this)}>
+                    </Button>
                 </Toolbar>
             </Layer>
             )

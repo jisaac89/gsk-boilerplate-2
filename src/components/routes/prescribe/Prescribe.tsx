@@ -113,7 +113,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                             </h2>
                                            
                                             <div className="border-bottom mb10 border-all pt10 text-left">
-                                                <div className="ps10"><strong>Advil</strong> - 200mg - Pills</div>
+                                                <small className="ps10"><strong>Advil</strong> - 200mg - Pills</small>
                                                 <div className="ps10 mb10"><small>10/22/2018</small></div>
                                                 <Toolbar noRadius block>
                                                     <Button block icon="autorenew" materialIcon>Refill</Button>   
@@ -121,7 +121,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                             </div>
 
                                             <div className="border-bottom border-all pt10 text-left">
-                                                <div className="ps10"><strong>Zoloft</strong> - 20mg - Bottle</div>
+                                                <small className="ps10"><strong>Zoloft</strong> - 20mg - Bottle</small>
                                                 <div className="ps10 mb10"><small>1/2/2018</small></div>
                                                 <Toolbar noRadius block>
                                                     <Button block icon="autorenew" materialIcon>Refill</Button>   
