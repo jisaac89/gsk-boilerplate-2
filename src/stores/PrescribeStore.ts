@@ -102,6 +102,10 @@ export class PrescribeStore implements IPrescribeStore {
 
         this.prescriptions.push(prescription);
 
+        setTimeout(() => {
+            console.log('reset form and show success');
+        }, 6000);
+
         console.log(this.prescriptions)
     }
 }
