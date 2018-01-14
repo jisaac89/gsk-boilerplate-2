@@ -9,6 +9,8 @@ import { appStore, prescribeStore } from '../../../stores/_GlobalStore';
 
 import {IPrescribeProps} from '../../../interfaces/views/IPrescribeProps';
 
+import SignatureCanvas from 'react-signature-canvas';
+
 @observer
 export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
@@ -32,7 +34,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         prescribeStore.selectStartDate(date);
     } 
     
-    toggleEndDate() {
+    toggleEndDate() { 
         prescribeStore.toggleEndDate();
     }
 
@@ -130,9 +132,12 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
                                     <Layer fill flexCenter>
                                         <div className="w500px center-width">
+                                              
+                                            <i className="material-icons super-xl mb20 floatL">highlight</i>
+
                                             <h2 className="mb20 text-center">
-                                                <small>Create a prescription:</small>
-                                              </h2>
+                                              <small>Create a prescription:</small>
+                                            </h2>
 
                                             <Toolbar block flex className="mb20 w500px" flush>
                                                 <Dropdown className="w200px" block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Advil', 'Omprezole', 'Cadvil', 'Zelle']} />
@@ -142,8 +147,13 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
     
                                             {selectedIssueUnit ? <DatePicker onClick={this.toggleStartDateDropdown.bind(this)} open={selectStartDateOpen} block mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
                                             {selectedStartDate ? <Toolbar flex spacing block><Button block theme={refill ? "primary" : "default"} onClick={this.toggleRefill.bind(this)} checked={refill} advanced size="large">Refillable</Button><Button block advanced theme={hasEndDate ? "primary" : "default"} checked={hasEndDate} size="large" onClick={this.toggleEndDate.bind(this)}>End date</Button></Toolbar>: null}
-                                            {hasEndDate ? <DatePicker block mobile size={"large"} className="mtb20" title={'End Date'} />: null}
+                                            {hasEndDate ? <DatePicker block mobile size={"large"} className="mt20" title={'End Date'} />: null}
                                             {selectedStartDate ? <Input advanced required={selectedInscription === ''} error={selectedInscription === ''} errorMessage={"Must have inscription filled."} focusOnMount={refill === true} onChange={this.updateInscription.bind(this)} block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
+                                            {selectedStartDate ?  
+                                            <Toolbar noRadius block className="border-all">
+                                              <Button block>Must Sign Below:</Button>
+                                              <SignatureCanvas penColor='black' canvasProps={{width: 500, height:100, className: 'sigCanvas'}} />
+                                            </Toolbar> : null}
                                             {selectedStartDate ? <Button disabled={selectedInscription === ''} block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
                                 
                                         </div>
