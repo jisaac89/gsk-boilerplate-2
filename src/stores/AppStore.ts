@@ -2,6 +2,8 @@ import {observable, computed} from 'mobx';
 
 import {IAppStore} from '../interfaces/stores/IAppStore';
 
+import {patientsStore} from './_GlobalStore';
+import { PatientsStore } from './PatientsStore';
 
 export class AppStore implements IAppStore {
     
@@ -15,7 +17,7 @@ export class AppStore implements IAppStore {
     }
 
     initializeApp() {
-
+        patientsStore.init();
     }
 
     toggleNightmode(){

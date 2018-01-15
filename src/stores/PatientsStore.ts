@@ -2,26 +2,17 @@ import {observable, computed, autorun} from 'mobx';
 
 import {appStore} from '../stores/_GlobalStore';
 
+import BaseStore from './BaseStore';
+
 interface IPatient {
-    Id: number;
-    name: string;
 }
 
-export class PatientsStore {
+export class PatientsStore extends BaseStore {
 
-    @observable patients : IPatient[] = [];
+    @observable patients : IPatient[] = this.list;
 
     constructor(){
-        // init
-    }
-
-    init(){
-        // grab a list of patients 
-        fetch('url').then(function(response) {
-            console.log(response)
-        }).then(function(data) {
-            console.log(data)
-        });
+        super('http://ec2-54-173-242-99.compute-1.amazonaws.com:3000/api/org.acme.sample.SampleAsset');
     }
 }
 

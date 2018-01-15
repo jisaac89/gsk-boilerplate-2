@@ -13,6 +13,7 @@ export default abstract class BaseStore extends Store{
 
     constructor(ref : string) {
         super(ref);
+        this.ref = ref;
     }
 
     init() {
@@ -21,11 +22,17 @@ export default abstract class BaseStore extends Store{
     }
 
     loadNewPage() {
-        const self = this;
-        // load the database ref with this.ref here
-        // set json data to this.list
-
-        this.loading = false;
+        const context = this;
+        let urlString = this.ref;
+        fetch(urlString).then(function(response) {
+            if (response){
+                response.json().then((data)=>{
+                   context.loading = false;
+                   context.list = data;
+                   console.log(context.list);
+                })
+            }
+        });
     }
 
     async add() : Promise<any> {
