@@ -14,6 +14,7 @@ import MenuPane from './navigation/MenuPane';
 
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescribe from './routes/prescribe/Prescribe';
+import Prescriptions from './routes/prescriptions/Prescriptions';
 
 @observer
 export default class Entry extends React.Component<any, any> {
@@ -41,6 +42,7 @@ export default class Entry extends React.Component<any, any> {
                         <Header />
                         <Route exact path="/" component={Dashboard} />
                         <Route path="/prescribe" component={Prescribe} />
+                        <Route path="/prescriptions" component={Prescriptions} />
                     </Layer>
                     <MenuPane history={this.props.history} />
                     <LoadingPane />

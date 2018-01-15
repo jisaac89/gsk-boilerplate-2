@@ -1,6 +1,6 @@
 import {observable, computed, autorun} from 'mobx';
 
-import {appStore, patientsStore} from '../stores/_GlobalStore';
+import {appStore, patientsStore, prescriptionsStore} from '../stores/_GlobalStore';
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
 
 interface Prescription {
@@ -32,7 +32,7 @@ export class PrescribeStore implements IPrescribeStore {
 
     //
 
-    @observable prescriptions : Prescription[] = [];
+    // @observable prescriptions : Prescription[] = [];
     @observable prescriptionComplete: boolean = false;
     @observable selectStartDateOpen : boolean = false;
 
@@ -107,7 +107,7 @@ export class PrescribeStore implements IPrescribeStore {
             inscription : this.selectedInscription
         }
 
-        this.prescriptions.push(prescription);
+        prescriptionsStore.prescriptions.push(prescription);
 
         setTimeout(() => {
             self.prescriptionComplete = true;

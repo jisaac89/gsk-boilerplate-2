@@ -4,7 +4,7 @@ import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, 
 
 import {observer} from 'mobx-react';
 
-import {appStore, prescribeStore} from '../../stores/_GlobalStore';
+import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_GlobalStore';
 
 import RouterButton from '../helpers/RouterButton';
 
@@ -26,7 +26,7 @@ export default class MenuPane extends React.Component<any, any> {
                             </div>
                             <Toolbar block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />
-                                {prescribeStore.prescriptions.length ? <RouterButton block materialIcon size="large" history={history} icon="list" route="/prescriptions" title={prescribeStore.prescriptions.length + " Prescription(s)"} /> : null}
+                                {prescriptionsStore.prescriptions.length ? <RouterButton block materialIcon size="large" history={history} icon="list" route="/prescriptions" title={prescriptionsStore.prescriptions.length + " Prescription(s)"} /> : null}
                             </Toolbar>
                         </div>
                     </Emerge>
