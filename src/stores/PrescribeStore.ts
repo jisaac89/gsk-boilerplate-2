@@ -1,6 +1,6 @@
 import {observable, computed, autorun} from 'mobx';
 
-import {appStore} from '../stores/_GlobalStore';
+import {appStore, patientsStore} from '../stores/_GlobalStore';
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
 
 interface Prescription {
@@ -117,6 +117,8 @@ export class PrescribeStore implements IPrescribeStore {
             this.gotoFormIndex(0);
             appStore.toggleMenu();
         }, 6000);
+
+        patientsStore.add();
 
     }
 

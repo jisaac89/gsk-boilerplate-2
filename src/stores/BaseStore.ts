@@ -35,8 +35,19 @@ export default abstract class BaseStore extends Store{
         });
     }
 
-    async add() : Promise<any> {
+    abstract addObject() : void;
 
+    async add() : Promise<any> {
+        const context = this;
+        context.loading = true;
+        fetch(context.ref, {
+          method: 'post',
+          body: JSON.stringify(context.addObject)
+        }).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+          console.log('Created:', data);
+        });
     };
 
     async update(id : string, object: Object) {
