@@ -118,7 +118,7 @@ export class PrescribeStore implements IPrescribeStore {
             appStore.toggleMenu();
         }, 6000);
 
-        patientsStore.add();
+        console.log(prescriptionsStore.prescriptions);
 
     }
 

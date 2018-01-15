@@ -18,10 +18,18 @@ export default class Prescribe extends React.Component<{}, {}> {
     }
 
     render() {
+
+        let menuTemplate = (item, index) => {
+            return (
+                <Toolbar block>
+                    <Button right theme="primary" size="small">View</Button>
+                </Toolbar>
+            )
+        }
         
         return (
             <Layer fill flex>
-               <Table dataSource={prescriptionsStore.prescriptions} />
+               <Table columns={[{name: 'drug', width: 100}, {name: 'patient'}, {template: menuTemplate}]} dataSource={prescriptionsStore.prescriptions} />
             </Layer>
         )
     }
