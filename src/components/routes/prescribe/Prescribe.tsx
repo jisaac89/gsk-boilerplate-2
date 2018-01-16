@@ -70,7 +70,13 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         let columnsTemplate = (item, index) =>{
             return <Button className="ps20" block simple size="large">{item.name.first}</Button>;
         }
-
+        let menuTemplate = (item, index) => {
+          return (
+              <Toolbar block>
+                  <Button right materialIcon icon="autorenew" iconLocation="left" theme="error" outline size="small">refill</Button>
+              </Toolbar>
+          )
+      }
         return (
             <Layer fill flex>
                 <Layer fill flex>
@@ -112,21 +118,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                                 <small>Prescription(s) for {selectedPatient}:</small>
                                             </h2>
                                            
-                                            <div className="border-bottom mb10 border-all pt10 text-left">
-                                                <small className="ps10"><strong>Advil</strong> - 200mg - Pills</small>
-                                                <div className="ps10 mb10"><small>10/22/2018</small></div>
-                                                <Toolbar noRadius block>
-                                                    <Button block icon="autorenew" materialIcon>Refill</Button>   
-                                                </Toolbar>                                        
+                                            <div className="w500px center-width text-left">
+                                                <Table searchTitle={'Search by startDate or patient.'} searchableKeys={['drug', 'startDate']} columns={[{name: 'drug', width: 100}, {name: 'startDate'}, {template: menuTemplate}]} dataSource={arrayOfPast} />
                                             </div>
 
-                                            <div className="border-bottom border-all pt10 text-left">
-                                                <small className="ps10"><strong>Zoloft</strong> - 20mg - Bottle</small>
-                                                <div className="ps10 mb10"><small>1/2/2018</small></div>
-                                                <Toolbar noRadius block>
-                                                    <Button block icon="autorenew" materialIcon>Refill</Button>   
-                                                </Toolbar>                                        
-                                            </div>
                                         </div>
                                     </Layer>
 
@@ -187,6 +182,18 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         )
     }
 } 
+
+
+let arrayOfPast = [
+  {
+    drug: 'Advil',
+    startDate: '1/1/2018'
+  },
+  {
+    drug: 'Zoloft',
+    startDate: '1/2/2018'
+  }
+];
 
 let arrayOfNames = [
   {
@@ -492,3 +499,18 @@ let arrayOfNames = [
 ]
 
 
+{/* <div className="border-bottom mb10 border-all pt10 text-left">
+<small className="ps10"><strong>Advil</strong> - 200mg - Pills</small>
+<div className="ps10 mb10"><small>10/22/2018</small></div>
+<Toolbar noRadius block>
+    <Button block icon="autorenew" materialIcon>Refill</Button>   
+</Toolbar>                                        
+</div>
+
+<div className="border-bottom border-all pt10 text-left">
+<small className="ps10"><strong>Zoloft</strong> - 20mg - Bottle</small>
+<div className="ps10 mb10"><small>1/2/2018</small></div>
+<Toolbar noRadius block>
+    <Button block icon="autorenew" materialIcon>Refill</Button>   
+</Toolbar>                                        
+</div> */}
