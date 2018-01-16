@@ -105,7 +105,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
                                 <Wizard fill slideIndex={prescribeIndex}>
                                     <Layer flexCenter fill className="p10">
-                                        <div className="w400px center-width">
+                                        <div className="w500px center-width">
                                             <Button onClick={this.gotoPrescribeIndex.bind(this, 1)} className="mb20" outline block theme="error" size="large" icon="plus">Create new prescription</Button>
 
                                             <h2 className="mb20 text-left">
