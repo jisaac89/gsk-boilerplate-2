@@ -33,8 +33,8 @@ export default class Prescribe extends React.Component<{}, {}> {
         
         return (
             <Layer fill flexCenter>
-                <Wizard slideIndex={prescriptionsStore.slideIndex}>
-                    <Layer>
+                <Wizard fill slideIndex={prescriptionsStore.slideIndex}>
+                    <Layer fill flexCenter >
                         <Emerge className="e-fill" if={!appStore.menu}>
                             <Layer>
                                 <i className="material-icons super-xl mb20 floatL">sort</i>
