@@ -10,6 +10,7 @@ export class PrescriptionsStore {
 
     @observable slideIndex: number = 0;
     @observable prescriptions : IPrescription[] = [];
+    @observable selectedPrescription : IPrescription = []
   
     constructor(){
        
@@ -17,6 +18,10 @@ export class PrescriptionsStore {
 
     gotoSlideIndex(n: number){
         this.slideIndex = n;
+    }
+
+    selectPrescription(prescription){
+        this.selectedPrescription = prescription;
     }
 
 }
