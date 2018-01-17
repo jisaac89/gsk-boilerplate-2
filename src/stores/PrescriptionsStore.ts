@@ -11,6 +11,7 @@ export class PrescriptionsStore {
     @observable slideIndex: number = 0;
     @observable prescriptions : IPrescription[] = [];
     @observable selectedPrescription : IPrescription = {}
+    @observable viewHistory : boolean = false;
   
     constructor(){
        
@@ -28,6 +29,10 @@ export class PrescriptionsStore {
     cancelSelectPrescription(){
         this.selectedPrescription = {};
         this.slideIndex = 0;
+    }
+
+    toggleViewHistory(){
+        this.viewHistory = !this.viewHistory;
     }
 
 }
