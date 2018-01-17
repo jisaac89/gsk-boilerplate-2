@@ -63,6 +63,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         prescribeStore.toggleStartDateDropdown();
     }
 
+    selectDose(value){
+      prescribeStore.selectDose(value)
+    }
+
     render() {
 
         let {formIndex, selectedDrug, prescribeIndex, selectedIssueUnit,selectedPatient,selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill} = prescribeStore;
@@ -99,12 +103,12 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                         <Layer fill flex overflow>
                             <Layer fill overflow>
                                 <h2 className="p10 border-top border-bottom">
-                                    <small>Lets start by selecting a patient:</small>
+                                    <small>Start by selecting a patient</small>
                                 </h2>
                                 <Table focusOnMount={selectedPatient === ''} searchableKeys={['name.first']} searchTitle="Search by Name or ID" onRowSelect={this.selectPatient.bind(this)} rowIsSelectable="single" className="h100" hideHeader fill flex hideFooter dataSource={arrayOfNames} columns={[{name: 'name.first', template: columnsTemplate}]} pageSize={arrayOfNames.length} />
                             </Layer>
                             <Open className="border-top ps10" if={selectedPatient !== ''} openToHeight={'86px'}>
-                                <Button className="w400px center-width mtb20" onClick={this.gotoSlideIndex.bind(this, 2)} outline theme="error" size={"large"}>Prescribe for {selectedPatient}</Button>
+                                <Button className="w400px center-width mtb20" onClick={this.gotoSlideIndex.bind(this, 2)} outline theme="error" size={"large"}>Select {selectedPatient}</Button>
                             </Open>
                         </Layer>
                         <Layer fill flexCenter scrollY>
@@ -112,13 +116,18 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                 <Wizard fill slideIndex={prescribeIndex}>
                                     <Layer flexCenter fill className="p10">
                                         <div className="w500px center-width">
-                                            <Button onClick={this.gotoPrescribeIndex.bind(this, 1)} className="mb20" outline block theme="error" size="large" icon="plus">Create new prescription</Button>
 
-                                            <h2 className="mb20 text-left">
-                                                <small>Prescription(s) for {selectedPatient}:</small>
+                                            <h2 className="mb20 text-center">
+                                                <small>{selectedPatient}</small>
                                             </h2>
-                                           
-                                            <div className="w500px center-width text-left">
+                                            
+                                            <Button onClick={this.gotoPrescribeIndex.bind(this, 1)} className="mb20" outline block theme="error" size="large" icon="plus">Create new prescription</Button>
+                                            
+                                            <h1 className="text-left">
+                                                <small>Active prescriptions</small>
+                                            </h1>
+
+                                            <div className="w500px border-top mt20 center-width text-left">
                                                 <Table searchTitle={'Search by startDate or patient.'} searchableKeys={['drug', 'startDate']} columns={[{name: 'drug', width: 100}, {name: 'startDate'}, {template: menuTemplate}]} dataSource={arrayOfPast} />
                                             </div>
 
@@ -131,12 +140,12 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                             <i className="material-icons super-xl mb20 floatL">highlight</i>
 
                                             <h2 className="mb20 text-center">
-                                              <small>Create a prescription:</small>
+                                              <small>Create a prescription</small>
                                             </h2>
 
                                             <Toolbar block flex className="mb20 w500px" spacing>
                                                 <Dropdown className="w200px" block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Advil', 'Omprezole', 'Cadvil', 'Zelle']} />
-                                                <Input focusOnMount={selectedDrug} block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
+                                                <Input onChange={this.selectDose.bind(this)} focusOnMount={selectedDrug} block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
                                                 <Dropdown className="w200px" block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
                                             </Toolbar>
     

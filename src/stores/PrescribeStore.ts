@@ -22,6 +22,7 @@ export class PrescribeStore implements IPrescribeStore {
     //Inscription Object
 
     @observable selectedDrug : any = null;
+    @observable selectedDose : string = '';
     @observable selectedIssueUnit : any = null;
     @observable selectedStartDate : Date = null;
     @observable selectedEndDate : Date = null;
@@ -99,6 +100,7 @@ export class PrescribeStore implements IPrescribeStore {
 
         let prescription = {
             drug : this.selectedDrug,
+            dose: this.selectedDose,
             issueUnit: this.selectedIssueUnit,
             startDate: this.selectedStartDate,
             endDate: this.selectedEndDate,
@@ -118,6 +120,8 @@ export class PrescribeStore implements IPrescribeStore {
             appStore.toggleMenu();
         }, 6000);
 
+        patientsStore.add()
+
         console.log(prescriptionsStore.prescriptions);
 
     }
@@ -131,10 +135,15 @@ export class PrescribeStore implements IPrescribeStore {
         this.refill = false;
         this.selectedPatient = '';
         this.selectedInscription = '';
+        this.selectedDose = '';
     }
 
     toggleStartDateDropdown(){
         this.selectStartDateOpen = !this.selectStartDateOpen;
+    }
+
+    selectDose(value: string){
+        this.selectedDose = value;
     }
 }
 

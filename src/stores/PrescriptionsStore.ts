@@ -10,7 +10,7 @@ export class PrescriptionsStore {
 
     @observable slideIndex: number = 0;
     @observable prescriptions : IPrescription[] = [];
-    @observable selectedPrescription : IPrescription = []
+    @observable selectedPrescription : IPrescription = {}
   
     constructor(){
        
@@ -22,6 +22,12 @@ export class PrescriptionsStore {
 
     selectPrescription(prescription){
         this.selectedPrescription = prescription;
+        this.slideIndex = 1;
+    }
+
+    cancelSelectPrescription(){
+        this.selectedPrescription = {};
+        this.slideIndex = 0;
     }
 
 }

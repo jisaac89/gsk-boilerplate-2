@@ -20,13 +20,15 @@ export default class Prescribe extends React.Component<{}, {}> {
     selectPrescription(prescription){
         prescriptionsStore.selectPrescription(prescription);
     }
-
+ 
     render() {
+
+        let {selectedPrescription} = prescriptionsStore;
 
         let menuTemplate = (item, index) => {
             return (
                 <Toolbar block>
-                    <Button onClick={this.selectPrescription.bind(this)} materialIcon icon="forward" iconLocation="right" right theme="error" outline size="small">View</Button>
+                    <Button onClick={this.selectPrescription.bind(this, item)} icon="chevron-right" right theme="error" outline></Button>
                 </Toolbar>
             )
         }
@@ -48,13 +50,27 @@ export default class Prescribe extends React.Component<{}, {}> {
                             </Layer>
                         </Emerge>
                     </Layer>
-                    <Layer>
-                        <Layer>
-                            <i className="material-icons super-xl mb20 floatL">sort</i>
-                            <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
-                            <h1 className="mb20">
-                                <small>Patient, Start date.</small>
-                            </h1>
+                    <Layer fill>
+                        <Layer flexCenter fill>
+                           {selectedPrescription ? 
+                                <Layer>
+                                    <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
+                                    <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
+                                    <h1 className="mb20">
+                                        <small>Patient: <strong>{selectedPrescription.patient}</strong></small>
+                                    </h1>
+                                    <h1 className="mb20">
+                                        <small>Prescription: <strong>{selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</strong></small>
+                                    </h1>
+                                    <h1 className="mb20">
+                                        <small>Inscription: <strong>{selectedPrescription.inscription}</strong></small>
+                                    </h1>
+                                    <Toolbar textCenter vertical spacing block size="large" className="mt20 w300px center-width">
+                                        <Button block onClick={this.gotoSlideIndex.bind(this, 2)} materialIcon icon="list">View History</Button>
+                                        <Button block onClick={this.gotoSlideIndex.bind(this, 0)} icon="chevron-left">Go Back</Button>
+                                    </Toolbar>
+                                </Layer>
+                            : null}
                         </Layer>
                     </Layer>
                 </Wizard>
