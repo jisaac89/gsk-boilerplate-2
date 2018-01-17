@@ -38,15 +38,21 @@ export default abstract class BaseStore extends Store{
     abstract addObject() : void;
 
     async add() : Promise<any> {
-
-        console.log(this.addObject());
-
         const context = this;
+        
         context.loading = true;
-        fetch('http://ec2-54-173-242-99.compute-1.amazonaws.com:3000/api/org.acme.sample.SampleAsset', {
-          method: 'post',
-          body: context.addObject(),
-        }).then(function(response) {
+
+        var request = new Request('http://ec2-54-173-242-99.compute-1.amazonaws.com:3000/api/org.acme.sample.SampleAsset', {
+            method: 'POST', 
+            mode: 'cors', 
+            redirect: 'follow',
+            body: JSON.stringify(context.addObject()),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+
+        fetch(request).then(function(response) {
           return response.json();
         }).then(function(data) {
           console.log('Created:', data);
