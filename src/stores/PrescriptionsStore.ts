@@ -29,6 +29,7 @@ export class PrescriptionsStore {
     cancelSelectPrescription(){
         this.selectedPrescription = {};
         this.slideIndex = 0;
+        this.viewHistory = false;
     }
 
     toggleViewHistory(){
