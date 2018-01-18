@@ -5,11 +5,13 @@ import { Layer,Open, Emerge, Stepper,Loading, Table, Button, Wizard, Toolbar, Dr
 
 import { observer } from 'mobx-react';
 
-import { appStore, prescribeStore } from '../../../stores/_GlobalStore';
+import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
 
 import {IPrescribeProps} from '../../../interfaces/views/IPrescribeProps';
 
 import SignatureCanvas from 'react-signature-canvas';
+
+import {IPatient} from '../../../interfaces/data/IPatient';
 
 @observer
 export default class Prescribe extends React.Component<IPrescribeProps, {}> {
@@ -42,8 +44,8 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         prescribeStore.toggleRefill();
     }
 
-    selectPatient(patient){
-        prescribeStore.selectPatient(patient.name.first);
+    selectPatient(patient: IPatient){
+        prescribeStore.selectPatient(patient.firstName);
     }
 
     gotoPrescribeIndex(index) {
@@ -73,10 +75,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
     render() {
 
-        let {formIndex, selectedDrug, prescribeIndex, selectedIssueUnit,selectedPatient,selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill} = prescribeStore;
+        let {formIndex, selectedDrug, prescribeIndex,selectedDose, selectedIssueUnit,selectedPatient,selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill} = prescribeStore;
 
         let columnsTemplate = (item, index) =>{
-            return <Button className="ps20" block simple size="large">{item.name.first}</Button>;
+            return <Button className="ps20" block simple size="large">{item.firstName}</Button>;
         }
         let menuTemplate = (item, index) => {
           return (
@@ -109,7 +111,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                 <h2 className="p10 border-top border-bottom">
                                     <small>Start by selecting a patient</small>
                                 </h2>
-                                <Table focusOnMount={selectedPatient === ''} searchableKeys={['name.first']} searchTitle="Search by Name or ID" onRowSelect={this.selectPatient.bind(this)} rowIsSelectable="single" className="h100" hideHeader fill flex hideFooter dataSource={arrayOfNames} columns={[{name: 'name.first', template: columnsTemplate}]} pageSize={arrayOfNames.length} />
+                                <Table focusOnMount={selectedPatient === ''} searchableKeys={['firstName']} searchTitle="Search by Name or ID" onRowSelect={this.selectPatient.bind(this)} rowIsSelectable="single" className="h100" hideHeader fill flex hideFooter dataSource={patientsStore.list} columns={[{name: 'firstName', template: columnsTemplate}]} pageSize={arrayOfNames.length} />
                             </Layer>
                             <Open className="border-top ps10" if={selectedPatient !== ''} openToHeight={'86px'}>
                                 <Button className="w400px center-width mtb20" onClick={this.gotoSlideIndex.bind(this, 2)} outline theme="error" size={"large"}>Select {selectedPatient}</Button>
@@ -149,7 +151,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
                                             <Toolbar block flex className="mb20 w500px" spacing>
                                                 <Dropdown className="w200px" block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Tivicay', 'Advil', 'Omprezole', 'Celebrex', 'Cadvil', 'Zelle']} />
-                                                <Input onChange={this.selectDose.bind(this)} focusOnMount={selectedDrug} block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
+                                                <Input advanced error={!selectedDose} onChange={this.selectDose.bind(this)} focusOnMount={selectedDrug} block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
                                                 <Dropdown className="w200px" block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
                                             </Toolbar>
     
@@ -162,7 +164,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                               <Button block>Must Sign Below:</Button>
                                               <SignatureCanvas penColor='black' canvasProps={{width: 500, height:100, className: 'sigCanvas'}} />
                                             </Toolbar> : null}
-                                            {selectedStartDate ? <Button block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
+                                            {selectedStartDate ? <Button disabled={!selectedDrug || !selectedIssueUnit || !selectedDose} block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
                                 
                                         </div>
                                     </Layer>

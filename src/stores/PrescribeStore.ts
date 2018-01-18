@@ -2,6 +2,7 @@ import {observable, computed, autorun} from 'mobx';
 
 import {appStore, patientsStore, prescriptionsStore} from '../stores/_GlobalStore';
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
+import BaseStore from './BaseStore';
 
 interface Prescription {
     drug: string;
@@ -13,7 +14,7 @@ interface Prescription {
     inscription: string;
 }
 
-export class PrescribeStore implements IPrescribeStore {
+export class PrescribeStore extends BaseStore implements IPrescribeStore {
     
     @observable slideIndex : number = 0;
     @observable formIndex : number = 0;
@@ -100,18 +101,18 @@ export class PrescribeStore implements IPrescribeStore {
 
         this.gotoSlideIndex(3);
 
-        let prescription = {
-            drug : this.selectedDrug,
-            dose: this.selectedDose,
-            issueUnit: this.selectedIssueUnit,
-            startDate: this.selectedStartDate,
-            endDate: this.selectedEndDate,
-            refill : this.refill,
-            patient : this.selectedPatient,
-            inscription : this.selectedInscription
-        }
+        // let prescription = {
+        //     drug : this.selectedDrug,
+        //     dose: this.selectedDose,
+        //     issueUnit: this.selectedIssueUnit,
+        //     startDate: this.selectedStartDate.toDateString(),
+        //     endDate: this.selectedEndDate.toDateString(),
+        //     refill : this.refill,
+        //     patient : this.selectedPatient,
+        //     inscription : this.selectedInscription
+        // }
 
-        prescriptionsStore.prescriptions.push(prescription);
+        // prescriptionsStore.prescriptions.push(prescription);
 
         setTimeout(() => {
             self.prescriptionComplete = true;
@@ -120,9 +121,9 @@ export class PrescribeStore implements IPrescribeStore {
             this.gotoFormIndex(0);
         }, 8000);
 
-        patientsStore.add()
+        prescribeStore.add();
 
-        console.log(prescriptionsStore.prescriptions);
+        // console.log(prescriptionsStore.prescriptions);
 
     }
 
@@ -147,6 +148,39 @@ export class PrescribeStore implements IPrescribeStore {
 
     selectDose(value: string){
         this.selectedDose = value;
+    }
+
+    addObject(){
+
+        let generatedId = Math.random().toString();
+        
+        let prescription = {
+            prescriptionuuid: generatedId, 
+            drug : this.selectedDrug,
+            dose: this.selectedDose,
+            issueUnit: this.selectedIssueUnit,
+            creationdate: this.selectedStartDate,
+            expirationdate: this.selectedStartDate,
+            refill : this.refill,
+            owner : this.selectedPatient,
+            prescriber: 'Iveth',
+            inscription : this.selectedInscription,
+
+            "$class": 'cloud.aperio.viiv.Prescription',
+            "description": 'asfasf',
+            "creatorreferencenumber": 'asfasf',
+            "pharmaitemuuid": '`' + generatedId + '`',
+            "refillinstructions": 's',
+            "substitutions": 'asfasf',
+            "notes": 'asfasf',
+            "electronicsignature": 'asfasf'
+        }
+
+        return prescription;
+    }
+
+    constructor(){
+        super('Prescription');
     }
 }
 

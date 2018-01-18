@@ -24,7 +24,7 @@ export default abstract class BaseStore extends Store{
     loadNewPage() {
         const context = this;
         let urlString = this.ref;
-        fetch(urlString).then(function(response) {
+        fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.' + urlString).then(function(response) {
             if (response){
                 response.json().then((data)=>{
                    context.loading = false;
@@ -39,10 +39,12 @@ export default abstract class BaseStore extends Store{
 
     async add() : Promise<any> {
         const context = this;
-        
+
+        let urlString = context.ref;
+
         context.loading = true;
 
-        var request = new Request('http://ec2-54-173-242-99.compute-1.amazonaws.com:3000/api/org.acme.sample.SampleAsset', {
+        var request = new Request('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.' + urlString, {
             method: 'POST', 
             mode: 'cors', 
             redirect: 'follow',
@@ -55,7 +57,8 @@ export default abstract class BaseStore extends Store{
         fetch(request).then(function(response) {
           return response.json();
         }).then(function(data) {
-          console.log('Created:', data);
+            console.log(data);
+            context.loadNewPage();
         });
     };
 

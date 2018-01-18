@@ -1,14 +1,20 @@
-interface IPatient{
-
-}
-
 export interface IPrescription{
     drug?: string;
     dose?: string;
     issueUnit?: string;
-    startDate?: Date;
-    endDate?: Date;
     refill?: boolean;
-    patient?: IPatient;
-    inscription?: string;
+    "$class"?: string,
+    "prescriptionuuid"?: string,
+    "description"?: string,
+    "creatorreferencenumber"?: string,
+    "owner"?: string,
+    "prescriber"?: string,
+    "creationdate"?: string,
+    "expirationdate"?: string,
+    "pharmaitemuuid"?: string,
+    "refillinstructions"?: string,
+    "substitutions"?: string,
+    "notes"?: string,
+    "electronicsignature"?: string,
+    "inscription"?: string
 }

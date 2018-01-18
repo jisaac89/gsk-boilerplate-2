@@ -4,7 +4,7 @@ import { Layer,Open, Emerge, Stepper,Loading,SlideIn,Transform, Table, Button, W
 
 import { observer } from 'mobx-react';
 
-import { appStore, prescriptionsStore } from '../../../stores/_GlobalStore';
+import { appStore, prescriptionsStore, prescribeStore} from '../../../stores/_GlobalStore';
 import { PrescriptionsStore } from '../../../stores/PrescriptionsStore';
 
 @observer
@@ -54,7 +54,7 @@ export default class Prescribe extends React.Component<{}, {}> {
                                     <small>Select a patient to view a prescription in depth.</small>
                                 </h1>
                                 <div className="w500px center-width text-left">
-                                    <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={[{name: 'drug', width: 100}, {name: 'patient'}, {template: menuTemplate}]} dataSource={prescriptionsStore.prescriptions} />
+                                    <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={[{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}]} dataSource={prescribeStore.list} />
                                 </div>
                             </Layer>
                         </Emerge>
@@ -69,7 +69,7 @@ export default class Prescribe extends React.Component<{}, {}> {
                                                 <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                                 <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
                                                 <h1 className="mb20">
-                                                    <small>Patient: <strong>{selectedPrescription.patient}</strong></small>
+                                                    <small>Patient: <strong>{selectedPrescription.owner}</strong></small>
                                                 </h1>
                                                 <h1 className="mb20">
                                                     <small>Prescription: <strong>{selectedPrescription.drug} {selectedPrescription.dose} {selectedPrescription.issueUnit}</strong></small>
