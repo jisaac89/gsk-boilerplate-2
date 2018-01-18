@@ -55,7 +55,6 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
     }
 
     confirmPrescription(){
-        this.gotoSlideIndex(3);
         prescribeStore.confirmPrescription();
     }
 
@@ -65,6 +64,11 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
     selectDose(value){
       prescribeStore.selectDose(value)
+    }
+
+    goBackToDashboard(){
+      prescribeStore.resetPrescriptionForm(); 
+      appStore.toggleMenu();
     }
 
     render() {
@@ -176,6 +180,19 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                     </Emerge>
                                 </h1>
                             </Layer>
+                        </Layer>
+                        <Layer flexCenter fill>
+                          <div className="w500px center-width">                                
+                            <i className="material-icons super-xl mb20 floatL">done</i>
+
+                            <h2 className="mb20 text-center">
+                              <small>Prescription Sent!</small>
+                            </h2>
+
+                            <Toolbar block className="mb20 text-center" spacing> 
+                                <Button onClick={this.goBackToDashboard.bind(this)}>Go back to dashboard</Button>
+                            </Toolbar>
+                          </div>
                         </Layer>
                     </Wizard> 
                 </Layer>

@@ -98,6 +98,8 @@ export class PrescribeStore implements IPrescribeStore {
 
         const self = this;
 
+        this.gotoSlideIndex(3);
+
         let prescription = {
             drug : this.selectedDrug,
             dose: this.selectedDose,
@@ -113,12 +115,10 @@ export class PrescribeStore implements IPrescribeStore {
 
         setTimeout(() => {
             self.prescriptionComplete = true;
-            self.resetPrescriptionForm();
-            this.gotoSlideIndex(0);
+            this.gotoSlideIndex(4);
             this.gotoPrescribeIndex(0);
             this.gotoFormIndex(0);
-            appStore.toggleMenu();
-        }, 6000);
+        }, 8000);
 
         patientsStore.add()
 
@@ -136,6 +136,9 @@ export class PrescribeStore implements IPrescribeStore {
         this.selectedPatient = '';
         this.selectedInscription = '';
         this.selectedDose = '';
+        this.prescribeIndex = 0;
+        this.formIndex = 0;
+        this.slideIndex = 0;
     }
 
     toggleStartDateDropdown(){
