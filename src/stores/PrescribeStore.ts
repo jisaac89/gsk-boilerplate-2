@@ -181,6 +181,17 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
 
     constructor(){
         super('Prescription');
+        this.getPrescriptionHistory();
+    }
+
+    getPrescriptionHistory(){
+        fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/system/historian').then(function(response) {
+            if (response){
+                response.json().then((data)=>{
+                   console.log(data);
+                })
+            }
+        });
     }
 }
 
