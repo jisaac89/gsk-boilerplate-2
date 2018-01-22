@@ -193,9 +193,6 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             }
         });
     }
-
-
-
 }
 
 export const prescribeStore = new PrescribeStore();

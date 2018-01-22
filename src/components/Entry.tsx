@@ -27,6 +27,10 @@ export default class Entry extends React.Component<any, any> {
         appStore.initializeApp();
     }
 
+    onMobile(isMobile){
+        appStore.onMobile(isMobile);
+    }
+
     render() {
         
     let styles = {
@@ -36,7 +40,7 @@ export default class Entry extends React.Component<any, any> {
 
     return (
         <Router>
-            <Recoil nightmode={appStore.nightmode} {...styles}>
+            <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                 <Layer {...styles}>
                     <Layer flex {...styles}>
                         <Header />

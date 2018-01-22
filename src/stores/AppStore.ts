@@ -28,6 +28,10 @@ export class AppStore implements IAppStore {
         this.menu = !this.menu;
     }
 
+    onMobile(isMobile: boolean){
+        this.mobile = isMobile;
+    }
+
 }
 
 export const appStore = new AppStore();
