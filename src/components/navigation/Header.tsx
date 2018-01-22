@@ -19,7 +19,7 @@ export default class Header extends React.Component<any, any> {
 
     render() {
         return (
-            <Layer>
+            <Layer className="z5">
                 <Toolbar flex block textCenter spacing className="p10">
                     <Button materialIcon simple icon={"menu"} onClick={this.toggleMenu.bind(this)}>
                     </Button>   

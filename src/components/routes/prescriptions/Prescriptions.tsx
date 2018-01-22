@@ -53,7 +53,7 @@ export default class Prescribe extends React.Component<{}, {}> {
                                 <h1 className="mb20">
                                     <small>Select a patient to view a prescription in depth.</small>
                                 </h1>
-                                <div className="w500px center-width text-left">
+                                <div className="w100 ps20 center-width text-left">
                                     <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={[{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}]} dataSource={prescribeStore.list} />
                                 </div>
                             </Layer>

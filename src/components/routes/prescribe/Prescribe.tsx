@@ -97,7 +97,7 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                     <i className="material-icons super-xl mb20 floatL">highlight</i>
                                     <h2 className="mb20">Prescribe medication</h2>
                                     <h1 className="mb20">
-                                        <small>This wizard will take you through the process of assigning a medication to a patient.</small>
+                                        <small>This wizard will take you through the process of prescribing a medication to a patient.</small>
                                     </h1>
                                     
                                     <Toolbar block size="large" className="mt20">
