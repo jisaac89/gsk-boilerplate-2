@@ -10,6 +10,9 @@ import RouterButton from '../helpers/RouterButton';
 
 @observer
 export default class MenuPane extends React.Component<any, any> {
+    deleteAllPrescriptions(){
+        prescribeStore.deleteAllPrescriptions();
+    }
     render() {
 
         let {history} = this.props;
@@ -22,7 +25,7 @@ export default class MenuPane extends React.Component<any, any> {
                             <h2>Welcome <strong>Dr. Iveth</strong></h2>
                             <h3 className="mb50">Start prescribing to get started!</h3>
                             <div className="mb50">
-                                <img className="profile-pic" height={132} width={102} src={'http://www.apollonion.com/assets/image/imagesplashdoc/women-img0001.png'} />
+                                <img onClick={this.deleteAllPrescriptions.bind(this)} className="profile-pic" height={132} width={102} src={'http://www.apollonion.com/assets/image/imagesplashdoc/women-img0001.png'} />
                             </div>
                             <Toolbar block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />

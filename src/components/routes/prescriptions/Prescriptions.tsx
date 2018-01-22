@@ -43,7 +43,7 @@ export default class Prescribe extends React.Component<{}, {}> {
         }
         
         let defaultColumns = [{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}];
-        let mobileColumns = [{name: 'drug', template: menuTemplate}];
+        let mobileColumns = [{name: 'drug'} ,{template: menuTemplate}];
 
         return (
             <Layer fill flexCenter>

@@ -193,6 +193,30 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             }
         });
     }
+
+    deleteAllPrescriptions(){
+        const context = this;
+        this.list.forEach((element: any, index) => {
+            var request = new Request('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.Prescription/' + element.prescriptionuuid,  {
+                method: 'DELETE', 
+                mode: 'cors', 
+                redirect: 'follow',
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            });
+    
+            fetch(request).then(function(response) {
+              return response;
+            }).then(function(data) {
+                if (index === context.list.length - 1){
+                    context.loadNewPage();
+                }
+            });
+        });
+
+        
+    }
 }
 
 export const prescribeStore = new PrescribeStore();
