@@ -163,17 +163,17 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             expirationdate: this.selectedStartDate,
             refill : this.refill,
             owner : this.selectedPatient,
-            prescriber: 'Iveth',
+            prescriber: 'Dr.',
             inscription : this.selectedInscription,
 
             "$class": 'cloud.aperio.viiv.Prescription',
-            "description": 'asfasf',
-            "creatorreferencenumber": 'asfasf',
+            "description": this.selectedInscription,
+            "creatorreferencenumber": 'sample ref',
             "pharmaitemuuid": '`' + generatedId + '`',
-            "refillinstructions": 's',
-            "substitutions": 'asfasf',
-            "notes": 'asfasf',
-            "electronicsignature": 'asfasf'
+            "refillinstructions": 'sample refill',
+            "substitutions": this.selectedInscription,
+            "notes": 'sample notes',
+            "electronicsignature": 'sample sig'
         }
 
         return prescription;
@@ -193,6 +193,9 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             }
         });
     }
+
+
+
 }
 
 export const prescribeStore = new PrescribeStore();
