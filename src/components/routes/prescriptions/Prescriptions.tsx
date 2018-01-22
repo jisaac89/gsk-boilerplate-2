@@ -42,6 +42,9 @@ export default class Prescribe extends React.Component<{}, {}> {
             )
         }
         
+        let defaultColumns = [{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}];
+        let mobileColumns = [{name: 'drug', template: menuTemplate}];
+
         return (
             <Layer fill flexCenter>
                 <Wizard fill slideIndex={prescriptionsStore.slideIndex}>
@@ -54,7 +57,7 @@ export default class Prescribe extends React.Component<{}, {}> {
                                     <small>Select a patient to view a prescription in depth.</small>
                                 </h1>
                                 <div className="w100 ps20 center-width text-left">
-                                    <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={[{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}]} dataSource={prescribeStore.list.reverse()} />
+                                    <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={!appStore.mobile ? defaultColumns : mobileColumns} dataSource={prescribeStore.list.reverse()} />
                                 </div>
                             </Layer>
                         </Emerge>
