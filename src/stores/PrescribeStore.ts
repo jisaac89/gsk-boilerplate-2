@@ -37,6 +37,7 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
     // @observable prescriptions : Prescription[] = [];
     @observable prescriptionComplete: boolean = false;
     @observable selectStartDateOpen : boolean = false;
+    @observable selectEndDateOpen : boolean = false;
 
     test = autorun(()=>{
         if (!!this.selectedDrug && !this.selectedIssueUnit) {
@@ -73,6 +74,9 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
 
     selectEndDate(date) {
         this.selectedEndDate = date;
+        setTimeout(() => {
+            this.selectEndDateOpen = false;         
+        }, 300);
     }
 
     toggleEndDate(){
@@ -144,6 +148,10 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
 
     toggleStartDateDropdown(){
         this.selectStartDateOpen = !this.selectStartDateOpen;
+    }
+
+    toggleEndDateDropdown(){
+        this.selectEndDateOpen = !this.selectEndDateOpen;
     }
 
     selectDose(value: string){

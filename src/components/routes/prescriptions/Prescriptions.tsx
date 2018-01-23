@@ -45,6 +45,8 @@ export default class Prescribe extends React.Component<{}, {}> {
         let defaultColumns = [{name: 'drug', width: 100}, {name: 'owner'}, {template: menuTemplate}];
         let mobileColumns = [{name: 'drug'} ,{template: menuTemplate}];
 
+        let mobile = appStore.mobile;
+
         return (
             <Layer fill flexCenter>
                 <Wizard fill slideIndex={prescriptionsStore.slideIndex}>
@@ -66,8 +68,8 @@ export default class Prescribe extends React.Component<{}, {}> {
                         <Layer fill>
                            {selectedPrescription ? 
                                 <Layer fill>
-                                    <Transform fill push="right" amount={"50%"} if={prescriptionsStore.viewHistory === true}>
-                                        <Layer flexCenter fill className="border-right">
+                                    <Transform fill push="right" amount={"50%"} if={prescriptionsStore.viewHistory === true && !mobile}>
+                                        <Layer flexCenter={!mobile} scrollY={mobile} fill className="border-right">
                                             <Layer>
                                                 <img height={175} width={175} src="https://www.qrstuff.com/images/default_qrcode.png" />
                                                 <h2 className="mb20">Prescription ID : 0x210958102985108</h2>
@@ -87,9 +89,9 @@ export default class Prescribe extends React.Component<{}, {}> {
                                             </Layer>
                                         </Layer>
                                     </Transform>
-                                    <SlideIn className="w50 h100" from="right" if={prescriptionsStore.viewHistory}>
+                                    <SlideIn className={mobile ? "w100 h100 z5" : "w50 h100"} from="right" if={prescriptionsStore.viewHistory}>
                                         
-                                        <Layer flexCenter fill>
+                                        <Layer theme="light" flexCenter={!mobile} fill scrollY={mobile}>
                                             
                                             
                                             <Layer className="text-left ps20 calen center-width">

@@ -49,7 +49,6 @@ export default class Entry extends React.Component<any, any> {
                         <Route path="/prescriptions" component={Prescriptions} />
                     </Layer>
                     <MenuPane history={this.props.history} />
-                    <LoadingPane />
                 </Layer>
             </Recoil>
         </Router>

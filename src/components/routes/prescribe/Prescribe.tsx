@@ -35,6 +35,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
     selectStartDate(date){
         prescribeStore.selectStartDate(date);
     } 
+
+    selectEndDate(date){
+      prescribeStore.selectEndDate(date);
+    }
     
     toggleEndDate() { 
         prescribeStore.toggleEndDate();
@@ -64,6 +68,10 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
         prescribeStore.toggleStartDateDropdown();
     }
 
+    toggleEndDateDropdown(){
+      prescribeStore.toggleEndDateDropdown();
+    }
+
     selectDose(value){
       prescribeStore.selectDose(value)
     }
@@ -75,8 +83,8 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
 
     render() {
 
-        let {formIndex, selectedDrug, prescribeIndex,selectedDose, selectedIssueUnit,selectedPatient,selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill} = prescribeStore;
-
+        let {formIndex, selectedDrug, prescribeIndex,selectedDose,selectEndDateOpen, selectedIssueUnit,selectedPatient,selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill} = prescribeStore;
+        let mobile = appStore.mobile;
         let columnsTemplate = (item, index) =>{
             return <Button className="ps20" block simple size="large">{item.firstName}</Button>;
         }
@@ -150,21 +158,21 @@ export default class Prescribe extends React.Component<IPrescribeProps, {}> {
                                             </h2>
 
                                             <Toolbar block flex className="mb20 w500px" spacing>
-                                                <Dropdown className="w200px" block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Tivicay', 'Advil', 'Omprezole', 'Celebrex', 'Cadvil', 'Zelle']} />
+                                                <Dropdown mobile={mobile} className="w200px" block hideDropdownHeader hideHeader title={selectedDrug ? selectedDrug :  'Drug'} theme={selectedDrug ? "primary" : null} onChange={this.selectDrug.bind(this)} selectedElements={[selectedDrug]} size={"large"} dataSource={['Tivicay', 'Advil', 'Omprezole', 'Celebrex', 'Cadvil', 'Zelle']} />
                                                 <Input advanced error={!selectedDose} onChange={this.selectDose.bind(this)} focusOnMount={selectedDrug} block className="text-center w100px dinblock" size="large" placeholder={"Dose"} />
-                                                <Dropdown className="w200px" block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
+                                                <Dropdown mobile={mobile} className="w200px" block theme={selectedIssueUnit ? "primary" : null} hideDropdownHeader hideHeader onChange={this.selectIssueUnit.bind(this)} size={"large"} dataSource={['Pill(s)', 'Tab(s)', 'Bottle(s)', 'Oz', 'mg', 'g', 'Ea']} title={selectedIssueUnit ? selectedIssueUnit : 'Unit'} />
                                             </Toolbar>
     
                                             {selectedIssueUnit ? <DatePicker onClick={this.toggleStartDateDropdown.bind(this)} open={selectStartDateOpen} block mobile onSelect={this.selectStartDate.bind(this)} size={"large"} className="mb20" title={selectedStartDate ?  selectedStartDate.toDateString() : 'Start Date'} />: null}
                                             {selectedStartDate ? <Toolbar flex spacing block><Button block theme={refill ? "primary" : "default"} onClick={this.toggleRefill.bind(this)} checked={refill} advanced size="large">Refillable</Button><Button block advanced theme={hasEndDate ? "primary" : "default"} checked={hasEndDate} size="large" onClick={this.toggleEndDate.bind(this)}>End date</Button></Toolbar>: null}
-                                            {hasEndDate ? <DatePicker block mobile size={"large"} className="mt20" title={'End Date'} />: null}
-                                            {selectedStartDate ? <Input advanced onChange={this.updateInscription.bind(this)} block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
-                                            {selectedStartDate ?  
+                                            {hasEndDate ? <DatePicker onClick={this.toggleEndDateDropdown.bind(this)}  open={selectEndDateOpen} onSelect={this.selectEndDate.bind(this)} block mobile size={"large"} className="mt20" title={'End Date'} />: null}
+                                            {selectedStartDate ? <Input advanced error={selectedInscription === ''} onChange={this.updateInscription.bind(this)} block size="large" className="mtb20" type="text" placeholder="Inscription" />: null}                                
+                                            {selectedStartDate ?   
                                             <Toolbar noRadius block className="border-all">
                                               <Button block>Must Sign Below:</Button>
                                               <SignatureCanvas penColor='black' canvasProps={{width: 500, height:100, className: 'sigCanvas'}} />
                                             </Toolbar> : null}
-                                            {selectedStartDate ? <Button disabled={!selectedDrug || !selectedIssueUnit || !selectedDose} block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
+                                            {selectedStartDate ? <Button disabled={!selectedDrug || !selectedIssueUnit || !selectedDose || selectedInscription === ''} block onClick={this.confirmPrescription.bind(this)} outline theme="error" size={"large"} className="mtb20">Submit Prescription</Button>: null}
                                 
                                         </div>
                                     </Layer>
