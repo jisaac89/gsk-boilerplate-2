@@ -50,7 +50,7 @@ export default class Prescribe extends React.Component<{}, {}> {
         return (
             <Layer fill flexCenter>
                 <Wizard fill slideIndex={prescriptionsStore.slideIndex}>
-                    <Layer fill flexCenter >
+                    <Layer fill flexCenter={!mobile} scrollY={mobile} >
                         <Emerge className="e-fill" if={!appStore.menu}>
                             <Layer>
                                 <i className="material-icons super-xl mb20 floatL">sort</i>
@@ -96,7 +96,7 @@ export default class Prescribe extends React.Component<{}, {}> {
                                             
                                             <Layer className="text-left ps20 calen center-width">
                                                 <h2 className="mb40">January 2018</h2>
-                                                <Stepper className="timeline" vertical stepIndex={3}>
+                                                <Stepper className="timeline mtb20 mb100" vertical stepIndex={3}>
                                                     <Toolbar>
                                                         <Button outline>1/17/2018</Button>
                                                         <Button className="w200px text-left" simple>Created</Button>
@@ -118,6 +118,14 @@ export default class Prescribe extends React.Component<{}, {}> {
                                                     </Toolbar>
                                                 </Stepper>
                                             </Layer>
+                                            {mobile ? 
+                                            <SlideIn fixed if={true} from="bottom" className="w100">
+                                                <Toolbar block textCenter className="p10">
+                                                    <Button size="large" icon="chevron-left" onClick={this.toggleViewHistory.bind(this)} block> 
+                                                        Cancel
+                                                    </Button>
+                                                </Toolbar>
+                                            </SlideIn> : null}
                                         </Layer>
                                     </SlideIn>
                                 </Layer>
