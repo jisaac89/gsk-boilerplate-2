@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom'
 
+import {observer} from 'mobx-react';
+
 import { Button, IButtonProps } from '../../../recoil/src/index';
 
 import {authStore, appStore} from '../../stores/_GlobalStore';
@@ -11,6 +13,7 @@ interface IAuthProps{
     pathname: any;
 }
 
+@observer
 export default class AuthLogin extends React.Component<IAuthProps, {}>{
 
     login = () => {
@@ -27,7 +30,7 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
         }
 
         return (
-            <Button block onClick={this.login}>Log in</Button>
+            <Button loading={authStore.loading} block onClick={this.login}>Log in</Button>
         )
     }
 }

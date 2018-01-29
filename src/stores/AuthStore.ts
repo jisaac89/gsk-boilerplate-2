@@ -8,11 +8,18 @@ export class AuthStore implements IAuthStore {
 
     @observable isAuthenticated : boolean = false;
     @observable redirectToReferrer : boolean = false;
+    @observable loading : boolean = false;
 
     authenticate(cb) {
-        this.isAuthenticated = true;
-        appStore.menu = true;
-        setTimeout(cb, 100);
+        
+        this.loading = true;
+        
+        setTimeout(()=>{
+            this.isAuthenticated = true;
+            this.loading = false;
+            cb();
+            appStore.menu = true;
+        }, 1000);
     }
 
     signout(cb) {

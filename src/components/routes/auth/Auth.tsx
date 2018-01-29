@@ -12,6 +12,9 @@ interface IAuthProps{
     location?: any;
 }
 
+import {observer} from 'mobx-react';
+
+@observer
 export default class Auth extends React.Component<IAuthProps, {}>{
     render() {
 
