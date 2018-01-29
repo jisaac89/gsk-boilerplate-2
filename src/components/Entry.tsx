@@ -4,7 +4,7 @@ import {Recoil, Layer} from '../../recoil/src/index';
 
 import {observer} from 'mobx-react';
 
-import {appStore} from '../stores/_GlobalStore';
+import {appStore, authStore} from '../stores/_GlobalStore';
 
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
 import MenuPane from './navigation/MenuPane';
 
+import Auth from './routes/auth/Auth';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescribe from './routes/prescribe/Prescribe';
 import Prescriptions from './routes/prescriptions/Prescriptions';
@@ -37,6 +38,8 @@ export default class Entry extends React.Component<any, any> {
     }
 
     render() {
+
+    let isAuthenticated = authStore.isAuthenticated;
         
     let styles = {
         overflow : true,
@@ -48,13 +51,13 @@ export default class Entry extends React.Component<any, any> {
             <Recoil onMobile={this.onMobile.bind(this)} nightmode={appStore.nightmode} {...styles}>
                 <Layer {...styles}>
                     <Layer flex {...styles}>
-                        <Header />
-                        <Route exact path="/" component={Dashboard} />
-                        <Route path="/prescribe" component={Prescribe} />
-                        <Route path="/prescriptions" component={Prescriptions} />
-                        <PrivateRoute path='/protected' component={Protected} />
+                        {isAuthenticated ? <Header /> : null}
+                        <PrivateRoute exact path="/" component={Dashboard} />
+                        <PrivateRoute path="/prescribe" component={Prescribe} />
+                        <PrivateRoute path="/prescriptions" component={Prescriptions} />
+                        <Route path="/auth" component={Auth}/>
                     </Layer>
-                    <MenuPane history={this.props.history} />
+                    {isAuthenticated ? <MenuPane history={this.props.history} /> : null}
                 </Layer>
             </Recoil>
         </Router>
