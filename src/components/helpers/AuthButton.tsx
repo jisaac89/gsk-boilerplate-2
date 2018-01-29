@@ -8,9 +8,6 @@ import { Button, IButtonProps } from '../../../recoil/src/index';
 import AuthLogin from './AuthLogin';
 
 export const AuthButton = withRouter(({ history }) => (
-
-    console.log(history.location.state),
-
     authStore.isAuthenticated ? (
         <Button block onClick={() => {
             authStore.signout(() => history.push('/'))

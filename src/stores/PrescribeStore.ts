@@ -105,19 +105,6 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
 
         this.gotoSlideIndex(3);
 
-        // let prescription = {
-        //     drug : this.selectedDrug,
-        //     dose: this.selectedDose,
-        //     issueUnit: this.selectedIssueUnit,
-        //     startDate: this.selectedStartDate.toDateString(),
-        //     endDate: this.selectedEndDate.toDateString(),
-        //     refill : this.refill,
-        //     patient : this.selectedPatient,
-        //     inscription : this.selectedInscription
-        // }
-
-        // prescriptionsStore.prescriptions.push(prescription);
-
         setTimeout(() => {
             self.prescriptionComplete = true;
             this.gotoSlideIndex(4);
@@ -126,8 +113,6 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
         }, 8000);
 
         prescribeStore.add();
-
-        // console.log(prescriptionsStore.prescriptions);
 
     }
 
@@ -196,7 +181,7 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
         fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/system/historian').then(function(response) {
             if (response){
                 response.json().then((data)=>{
-                   console.log(data);
+                    //    console.log(data);
                 })
             }
         });

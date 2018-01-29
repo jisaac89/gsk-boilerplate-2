@@ -7,6 +7,7 @@ import {IAuthStore} from '../interfaces/stores/IAuthStore';
 export class AuthStore implements IAuthStore {
 
     @observable isAuthenticated : boolean = false;
+    @observable redirectToReferrer : boolean = false;
 
     authenticate(cb) {
         this.isAuthenticated = true;

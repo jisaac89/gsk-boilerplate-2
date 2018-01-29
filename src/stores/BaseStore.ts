@@ -29,7 +29,6 @@ export default abstract class BaseStore extends Store{
                 response.json().then((data)=>{
                    context.loading = false;
                    context.list = data;
-                   console.log(context.list);
                 })
             }
         });
