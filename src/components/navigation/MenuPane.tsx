@@ -7,6 +7,7 @@ import {observer} from 'mobx-react';
 import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_GlobalStore';
 
 import RouterButton from '../helpers/RouterButton';
+import {AuthButton} from '../helpers/AuthButton';
 
 @observer
 export default class MenuPane extends React.Component<any, any> {
@@ -30,6 +31,7 @@ export default class MenuPane extends React.Component<any, any> {
                             <Toolbar block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />
                                 {prescribeStore.list.length ? <RouterButton block materialIcon size="large" history={history} icon="sort" route="/prescriptions" title={prescribeStore.list.length + " Prescription(s)"} /> : null}
+                                <AuthButton />                            
                             </Toolbar>
                         </div>
                     </Emerge>

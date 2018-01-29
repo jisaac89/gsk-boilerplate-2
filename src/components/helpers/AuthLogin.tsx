@@ -3,20 +3,20 @@ import {
     Redirect
   } from 'react-router-dom'
 
-import {authStore} from '../../../stores/_GlobalStore';
+import {authStore} from '../../stores/_GlobalStore';
 
 interface IAuthProps{
     location?: any;
 }
 
-export default class Auth extends React.Component<IAuthProps, {}>{
+export default class AuthLogin extends React.Component<IAuthProps, {}>{
     state = {
         redirectToReferrer: false
     }
     login = () => {
         authStore.authenticate(() => {
             this.setState(() => ({
-            redirectToReferrer: true
+                redirectToReferrer: true
             }))
         })
     }
@@ -29,10 +29,7 @@ export default class Auth extends React.Component<IAuthProps, {}>{
         }
 
         return (
-            <div>
-                <p>You must log in to view the page</p>
-                <button onClick={this.login}>Log in</button>
-            </div>
+            <button onClick={this.login}>Log in</button>
         )
     }
 }

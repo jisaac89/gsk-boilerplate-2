@@ -55,7 +55,7 @@ export default class Entry extends React.Component<any, any> {
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/prescribe" component={Prescribe} />
                         <PrivateRoute path="/prescriptions" component={Prescriptions} />
-                        <Route path="/auth" component={Auth}/>
+                        <Route path="/login" component={Auth}/>
                     </Layer>
                     {isAuthenticated ? <MenuPane history={this.props.history} /> : null}
                 </Layer>
