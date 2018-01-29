@@ -10,6 +10,7 @@ export class AuthStore implements IAuthStore {
 
     authenticate(cb) {
         this.isAuthenticated = true;
+        appStore.menu = true;
         setTimeout(cb, 100);
     }
 

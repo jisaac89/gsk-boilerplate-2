@@ -6,6 +6,8 @@ import {
 import {authStore} from '../../../stores/_GlobalStore';
 import { AuthButton } from '../../helpers/AuthButton';
 
+import {Toolbar} from '../../../../recoil/src/index';
+
 interface IAuthProps{
     location?: any;
 }
@@ -14,10 +16,9 @@ export default class Auth extends React.Component<IAuthProps, {}>{
     render() {
 
         return (
-            <div>
-                <p>You must log in to view the page</p>
+            <Toolbar block textCenter className="p10">
                 <AuthButton />
-            </div>
+            </Toolbar>
         )
     }
 }

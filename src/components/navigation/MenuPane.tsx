@@ -21,7 +21,7 @@ export default class MenuPane extends React.Component<any, any> {
         return (
             <SlideIn className="z5" if={appStore.menu} from="top" fill>
                 <Layer flexCenter className="text-center pt50" fill theme="dark">
-                    <Emerge enter="fadeIn" if={appStore.menu}>
+                    <Emerge if={appStore.menu}>
                         <div className="p10">
                             <h2>Welcome <strong>Dr. Iveth</strong></h2>
                             <h3 className="mb50">Start prescribing to get started!</h3>
