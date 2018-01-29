@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {
-    Redirect
-  } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+
+import { Button, IButtonProps } from '../../../recoil/src/index';
 
 import {authStore} from '../../stores/_GlobalStore';
 
 interface IAuthProps{
     location?: any;
+    state ?: any;
+    pathname: any;
 }
 
 export default class AuthLogin extends React.Component<IAuthProps, {}>{
@@ -29,7 +31,7 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
         }
 
         return (
-            <button onClick={this.login}>Log in</button>
+            <Button block onClick={this.login}>Log in</Button>
         )
     }
 }

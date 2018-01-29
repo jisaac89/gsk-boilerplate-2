@@ -3,14 +3,19 @@ import {withRouter} from "react-router-dom";
 
 import { authStore } from '../../stores/_GlobalStore';
 
+import { Button, IButtonProps } from '../../../recoil/src/index';
+
 import AuthLogin from './AuthLogin';
 
 export const AuthButton = withRouter(({ history }) => (
+
+    console.log(history.location.state),
+
     authStore.isAuthenticated ? (
-        <button onClick={() => {
+        <Button block onClick={() => {
             authStore.signout(() => history.push('/'))
-        }}>Sign out</button>
+        }}>Sign out</Button>
     ) : (
-        <AuthLogin />
+        <AuthLogin pathname={'/login'} location={history.location} />
     )
   ))

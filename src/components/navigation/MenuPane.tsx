@@ -28,10 +28,10 @@ export default class MenuPane extends React.Component<any, any> {
                             <div className="mb50">
                                 <img onClick={this.deleteAllPrescriptions.bind(this)} className="profile-pic" height={132} width={102} src={'http://www.apollonion.com/assets/image/imagesplashdoc/women-img0001.png'} />
                             </div>
-                            <Toolbar block className="w300px center-width" spacing vertical>
+                            <Toolbar textCenter block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />
                                 {prescribeStore.list.length ? <RouterButton block materialIcon size="large" history={history} icon="sort" route="/prescriptions" title={prescribeStore.list.length + " Prescription(s)"} /> : null}
-                                <AuthButton />                            
+                                <AuthButton buttonProps={{block: true, theme: 'default'}} />                            
                             </Toolbar>
                         </div>
                     </Emerge>
