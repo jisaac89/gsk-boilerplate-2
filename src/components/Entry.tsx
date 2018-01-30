@@ -14,7 +14,8 @@ import Header from './navigation/Header';
 import LoadingPane from './navigation/LoadingPane';
 import MenuPane from './navigation/MenuPane';
 
-import Auth from './routes/auth/Auth';
+import Login from './routes/auth/Login';
+import Register from './routes/auth/Register';
 import Dashboard from './routes/dashboard/Dashboard';
 import Prescribe from './routes/prescribe/Prescribe';
 import Prescriptions from './routes/prescriptions/Prescriptions';
@@ -55,9 +56,10 @@ export default class Entry extends React.Component<any, any> {
                         <PrivateRoute exact path="/" component={Dashboard} />
                         <PrivateRoute path="/prescribe" component={Prescribe} />
                         <PrivateRoute path="/prescriptions" component={Prescriptions} />
-                        <Route path="/login" component={Auth}/>
+                        <Route path="/login" component={Login}/>
                     </Layer>
                     {isAuthenticated ? <MenuPane history={this.props.history} /> : null}
+                    {!isAuthenticated ? <Register history={this.props.history} /> : null}
                 </Layer>
             </Recoil>
         </Router>

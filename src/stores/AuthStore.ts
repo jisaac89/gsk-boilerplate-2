@@ -22,6 +22,10 @@ export class AuthStore implements IAuthStore {
     @observable redirectToReferrer : boolean = false;
     @observable loading : boolean = false;
 
+    // register
+
+    @observable isRegistering : boolean = false;
+
     authenticate(cb) {
         
         this.loading = true;
@@ -38,7 +42,7 @@ export class AuthStore implements IAuthStore {
         this.isAuthenticated = false
         this.user.email = '';
         this.password = '';
-        
+
         setTimeout(cb, 100)
     }
 
@@ -48,6 +52,10 @@ export class AuthStore implements IAuthStore {
 
     setPassword(password){
         this.password = password;
+    }
+
+    toggleRegistering(){
+        this.isRegistering = !this.isRegistering;
     }
 }
 

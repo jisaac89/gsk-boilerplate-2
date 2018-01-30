@@ -30,6 +30,10 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
         authStore.setPassword(password);
     }
 
+    toggleRegistering(){
+        authStore.toggleRegistering();
+    }
+
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } }
         const { redirectToReferrer, user, password } = authStore;
@@ -41,13 +45,13 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
         return (
             <Toolbar textCenter block vertical spacing>
 
-                <Input onChange={this.setEmail.bind(this)} block placeholder="Username" />
+                <Input advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
                 <Input advanced required={user && user.email !== '' && password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
 
                 <Button disabled={user && user.email === '' || password === ''} theme={user && user.email === '' || password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
 
-                <Button block outline size="small">Forgot your password?</Button>
-                <Button block outline size="small">Not a member? Join Today</Button>
+                <Button disabled block outline size="small">Forgot your password?</Button>
+                <Button onClick={this.toggleRegistering.bind(this)} block outline size="small">Not a member? Join Today</Button>
 
             </Toolbar>
         )
