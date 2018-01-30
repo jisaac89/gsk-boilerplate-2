@@ -25,6 +25,7 @@ export class AuthStore implements IAuthStore {
     // register
 
     @observable isRegistering : boolean = false;
+    @observable isRegistered : boolean = false;
 
     authenticate(cb) {
         
@@ -56,6 +57,16 @@ export class AuthStore implements IAuthStore {
 
     toggleRegistering(){
         this.isRegistering = !this.isRegistering;
+    }
+
+    register() {
+        
+        this.loading = true;
+        
+        setTimeout(()=>{
+            this.isRegistered = true;
+            this.loading = false;
+        }, 1000);
     }
 }
 

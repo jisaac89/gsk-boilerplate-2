@@ -19,22 +19,27 @@ export default class Register extends React.Component<any, any> {
         authStore.toggleRegistering();
     }
 
+    register(){
+        authStore.register();
+    }
+
     render() {
 
         let {history} = this.props;
+        let {isRegistered} = authStore;
 
         return (
             <SlideIn className="z5" if={authStore.isRegistering} from="top" fill>
                 <Layer flexCenter className="text-center pt50" fill theme="dark">
                     <Emerge if={authStore.isRegistering}>
                         <div className="p10">
-                            <h2>Create a new account!</h2>
-                            <h3 className="mb50">We just need a know a few things first!</h3>
+                            <h2>{!isRegistered ? "Create a new account!" : "You have registered!"}</h2>
+                            <h3 className="mb50">{!isRegistered ? "We just need a know a few things first!" : "Please check your email to confirm"}</h3>
                             <Toolbar textCenter block className="w300px center-width" spacing vertical>
-                                <Input advanced placeholder="Company Code" block />
-                                <Input advanced placeholder="Email" block />
-                                <Input advanced placeholder="Password" type="password" block />
-                                <Button block size="large" theme="primary">Sign Up</Button>
+                                {!isRegistered ? <Input advanced placeholder="Company Code" block /> : null}
+                                {!isRegistered ? <Input advanced placeholder="Email" block />: null}
+                                {!isRegistered ? <Input advanced placeholder="Password" type="password" block />: null}
+                                {!isRegistered ? <Button loading={authStore.loading} onClick={this.register.bind(this)} block size="large" theme="primary">Sign Up</Button>: null}
                                 <Button size="small" onClick={this.toggleRegistering.bind(this)} block outline>Cancel</Button>                          
                             </Toolbar>
                         </div>
