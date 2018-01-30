@@ -4,7 +4,19 @@ import {appStore} from '../stores/_GlobalStore';
 
 import {IAuthStore} from '../interfaces/stores/IAuthStore';
 
+export interface IUser{
+    email: string;
+}
+
 export class AuthStore implements IAuthStore {
+
+    @observable user : IUser = {
+        email: ''
+    }
+
+    @observable password : string = '';
+
+    //
 
     @observable isAuthenticated : boolean = false;
     @observable redirectToReferrer : boolean = false;
@@ -25,6 +37,14 @@ export class AuthStore implements IAuthStore {
     signout(cb) {
         this.isAuthenticated = false
         setTimeout(cb, 100)
+    }
+
+    setEmail(email){
+        this.user.email = email;
+    }
+
+    setPassword(password){
+        this.password = password;
     }
 }
 
