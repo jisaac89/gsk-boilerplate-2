@@ -36,6 +36,9 @@ export class AuthStore implements IAuthStore {
 
     signout(cb) {
         this.isAuthenticated = false
+        this.user.email = '';
+        this.password = '';
+        
         setTimeout(cb, 100)
     }
 
