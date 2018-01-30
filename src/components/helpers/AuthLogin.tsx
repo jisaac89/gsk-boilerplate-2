@@ -46,7 +46,7 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
             <Toolbar textCenter block vertical spacing>
 
                 <Input advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
-                <Input advanced required={user && user.email !== '' && password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
+                <Input type="password" advanced required={user && user.email !== '' && password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
 
                 <Button disabled={user && user.email === '' || password === ''} theme={user && user.email === '' || password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
 
