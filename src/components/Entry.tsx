@@ -17,8 +17,8 @@ import MenuPane from './navigation/MenuPane';
 import Login from './routes/auth/Login';
 import Register from './routes/auth/Register';
 import Dashboard from './routes/dashboard/Dashboard';
-import Prescribe from './routes/prescribe/Prescribe';
-import Prescriptions from './routes/prescriptions/Prescriptions';
+import Prescribe from './routes/prescribe/_Prescribe';
+import Prescriptions from './routes/prescriptions/_Prescriptions';
 
 const Public = () => <h3>Public</h3>
 const Protected = () => <h3>Protected</h3>
