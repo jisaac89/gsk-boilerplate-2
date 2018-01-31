@@ -2,29 +2,30 @@ import * as React from 'react';
 
 import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, Open, Checkbox} from '../../../recoil/src/index';
 
-import {observer} from 'mobx-react';
-
-import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_GlobalStore';
+import {observer, inject} from 'mobx-react';
 
 import RouterButton from '../helpers/RouterButton';
 import {AuthButton} from '../helpers/AuthButton';
-import { authStore } from '../../stores/AuthStore';
 
+@inject('authStore', 'appStore', 'prescribeStore')
 @observer
 export default class MenuPane extends React.Component<any, any> {
     deleteAllPrescriptions(){
-        prescribeStore.deleteAllPrescriptions();
+        this.props.prescribeStore.deleteAllPrescriptions();
     }
     render() {
 
         let {history} = this.props;
+        let appStore = this.props.appStore;
+        let prescribeStore = this.props.prescribeStore;
+        let user = this.props.authStore.user;
 
         return (
             <SlideIn className="z5" if={appStore.menu} from="top" fill>
                 <Layer flexCenter className="text-center pt50" fill theme="dark">
                     <Emerge if={appStore.menu}>
                         <div className="p10">
-                            <h2>Welcome back <strong>{authStore.user.email}</strong></h2>
+                            <h2>Welcome back <strong>{user.email}</strong></h2>
                             <h3 className="mb50">Start prescribing to get started!</h3>
                             <div className="mb50">
                                 <img onClick={this.deleteAllPrescriptions.bind(this)} className="profile-pic" height={132} width={102} src={'http://dermamedicalgroup.com/wp-content/uploads/2014/05/MDoc.jpg'} />
@@ -39,5 +40,5 @@ export default class MenuPane extends React.Component<any, any> {
                 </Layer>
             </SlideIn>
         )
-    } 
-}  
+    }
+}
