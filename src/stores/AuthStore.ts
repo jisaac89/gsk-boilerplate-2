@@ -57,6 +57,13 @@ export class AuthStore implements IAuthStore {
 
     toggleRegistering(){
         this.isRegistering = !this.isRegistering;
+        this.resetRegisterUser();
+    }
+
+    resetRegisterUser(){
+        this.user.email = '';
+        this.password = '';
+        this.isRegistered = false;
     }
 
     register() {
