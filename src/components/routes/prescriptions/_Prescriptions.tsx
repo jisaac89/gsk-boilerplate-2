@@ -2,30 +2,30 @@ import * as React from 'react';
 
 import { Layer,Open, Emerge, Stepper,Loading,SlideIn,Transform, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
-
-import { appStore, prescriptionsStore, prescribeStore} from '../../../stores/_GlobalStore';
-import { PrescriptionsStore } from '../../../stores/PrescriptionsStore';
+import { observer, inject } from 'mobx-react';
 
 import PrescriptionsList from './PrescriptionsList';
 import SelectedPrescription from './SelectedPrescription';
 
+import {IPrescriptionsProps} from '../../../interfaces/views/IPrescriptionsProps';
+
+@inject('prescriptionsStore')
 @observer
-export default class Prescribe extends React.Component<{}, {}> {
+export default class _Prescriptions extends React.Component<IPrescriptionsProps, {}> {
 
     constructor(props) {
         super(props);
     }
 
     gotoSlideIndex(n: number){
-        prescriptionsStore.gotoSlideIndex(n);
+        this.props.prescriptionsStore.gotoSlideIndex(n);
     }
  
     render() {
 
-        let {selectedPrescription, viewHistory} = prescriptionsStore;
+        let prescriptionsStore = this.props.prescriptionsStore;
 
-        let mobile = appStore.mobile;
+        let {selectedPrescription, viewHistory} = prescriptionsStore;
 
         return (
             <Layer fill flexCenter>

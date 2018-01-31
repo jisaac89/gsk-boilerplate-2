@@ -3,4 +3,6 @@ export interface IAppStore{
     mobile : boolean;
     menu : boolean;
     loading : boolean;
+    initializeApp() : void;
+    onMobile(isMobile : boolean) : void;
 }

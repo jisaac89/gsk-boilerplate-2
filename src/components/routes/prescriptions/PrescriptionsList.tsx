@@ -2,18 +2,22 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, prescribeStore, patientsStore, prescriptionsStore } from '../../../stores/_GlobalStore';
+import {IPrescriptionsProps} from '../../../interfaces/views/IPrescriptionsProps';
 
+@inject('prescriptionsStore', 'appStore', 'prescribeStore')
 @observer
-export default class PrescriptionsList extends React.Component<{}, {}> {
+export default class PrescriptionsList extends React.Component<IPrescriptionsProps, {}> {
 
     selectPrescription(prescription) {
-        prescriptionsStore.selectPrescription(prescription);
+        this.props.prescriptionsStore.selectPrescription(prescription);
     }
 
     render() {
+
+        let appStore = this.props.appStore;
+        let prescribeStore = this.props.prescribeStore;
 
         let menuTemplate = (item, index) => {
             return (

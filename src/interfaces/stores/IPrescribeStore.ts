@@ -1,4 +1,5 @@
 export interface IPrescribeStore{
+    list : Array<any>;
     slideIndex: number;
     gotoSlideIndex(n: number) : void;
     gotoFormIndex(n: number) : void;

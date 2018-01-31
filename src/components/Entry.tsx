@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import {Recoil, Layer} from '../../recoil/src/index';
 
-import {observer} from 'mobx-react';
-
-import {appStore, authStore} from '../stores/_GlobalStore';
+import {observer, inject} from 'mobx-react';
 
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -20,27 +18,28 @@ import Dashboard from './routes/dashboard/Dashboard';
 import Prescribe from './routes/prescribe/_Prescribe';
 import Prescriptions from './routes/prescriptions/_Prescriptions';
 
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
+import {IEntryProps} from '../interfaces/views/IEntryProps';
 
+@inject('appStore', 'authStore')
 @observer
-export default class Entry extends React.Component<any, any> {
+export default class Entry extends React.Component<IEntryProps, any> {
 
     constructor(props) {
         super(props);
     }
 
     componentDidMount(){
-        appStore.initializeApp();
+        this.props.appStore.initializeApp();
     }
 
     onMobile(isMobile){
-        appStore.onMobile(isMobile);
+        this.props.appStore.onMobile(isMobile);
     }
 
     render() {
 
-    let isAuthenticated = authStore.isAuthenticated;
+    let appStore = this.props.appStore;
+    let isAuthenticated = this.props.authStore.isAuthenticated;
         
     let styles = {
         overflow : true,

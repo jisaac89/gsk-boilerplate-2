@@ -2,25 +2,26 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, SlideIn, Transform, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, prescribeStore, patientsStore, prescriptionsStore } from '../../../stores/_GlobalStore';
+import {IPrescriptionsProps} from '../../../interfaces/views/IPrescriptionsProps';
 
+@inject('prescriptionsStore', 'appStore', 'prescribeStore')
 @observer
-export default class SelectedPrescription extends React.Component<{}, {}> {
+export default class SelectedPrescription extends React.Component<IPrescriptionsProps, {}> {
 
     toggleViewHistory() {
-        prescriptionsStore.toggleViewHistory();
+        this.props.prescriptionsStore.toggleViewHistory();
     }
 
     cancelSelectPrescription() {
-        prescriptionsStore.cancelSelectPrescription();
+        this.props.prescriptionsStore.cancelSelectPrescription();
     }
     render() {
-        let mobile = appStore.mobile;
+        let mobile = this.props.appStore.mobile;
+        let prescriptionsStore = this.props.prescriptionsStore;
 
-
-        let { selectedPrescription, viewHistory } = prescriptionsStore;
+        let { selectedPrescription, viewHistory } = this.props.prescriptionsStore;
 
         return (
             <Layer fill>

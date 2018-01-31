@@ -20,7 +20,7 @@ export class PrescriptionsStore {
         this.slideIndex = n;
     }
 
-    selectPrescription(prescription){
+    selectPrescription(prescription : IPrescription){
         this.selectedPrescription = prescription;
         this.slideIndex = 1;
     }
