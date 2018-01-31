@@ -8,6 +8,7 @@ import {appStore, prescribeStore, prescriptionsStore} from '../../stores/_Global
 
 import RouterButton from '../helpers/RouterButton';
 import {AuthButton} from '../helpers/AuthButton';
+import { authStore } from '../../stores/AuthStore';
 
 @observer
 export default class MenuPane extends React.Component<any, any> {
@@ -23,10 +24,10 @@ export default class MenuPane extends React.Component<any, any> {
                 <Layer flexCenter className="text-center pt50" fill theme="dark">
                     <Emerge if={appStore.menu}>
                         <div className="p10">
-                            <h2>Welcome <strong>Dr. Iveth</strong></h2>
+                            <h2>Welcome back <strong>{authStore.user.email}</strong></h2>
                             <h3 className="mb50">Start prescribing to get started!</h3>
                             <div className="mb50">
-                                <img onClick={this.deleteAllPrescriptions.bind(this)} className="profile-pic" height={132} width={102} src={'http://www.apollonion.com/assets/image/imagesplashdoc/women-img0001.png'} />
+                                <img onClick={this.deleteAllPrescriptions.bind(this)} className="profile-pic" height={132} width={102} src={'http://dermamedicalgroup.com/wp-content/uploads/2014/05/MDoc.jpg'} />
                             </div>
                             <Toolbar textCenter block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />
