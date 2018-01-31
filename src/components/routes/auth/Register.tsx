@@ -2,29 +2,31 @@ import * as React from 'react';
 
 import {Recoil, Table, Button, Toolbar, Input, Emerge, Layer, SlideIn, Loading, Open, Checkbox} from '../../../../recoil/src/index';
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
 import { AuthButton } from '../../helpers/AuthButton';
 
-import {appStore, prescribeStore, prescriptionsStore} from '../../../stores/_GlobalStore';
-import { authStore } from '../../../stores/AuthStore';
+import {IRegisterProps} from '../../../interfaces/views/IRegisterProps';
 
+
+@inject('prescribeStore', 'authStore')
 @observer
-export default class Register extends React.Component<any, any> {
+export default class Register extends React.Component<IRegisterProps, any> {
     deleteAllPrescriptions(){
-        prescribeStore.deleteAllPrescriptions();
+        this.props.prescribeStore.deleteAllPrescriptions();
     }
 
     toggleRegistering(){
-        authStore.toggleRegistering();
+        this.props.authStore.toggleRegistering();
     }
 
     register(){
-        authStore.register();
+        this.props.authStore.register();
     }
 
     render() {
 
+        let authStore = this.props.authStore;
         let {history} = this.props;
         let {isRegistered} = authStore;
 

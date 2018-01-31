@@ -8,15 +8,16 @@ import { AuthButton } from '../../helpers/AuthButton';
 
 import {Toolbar, Layer, Emerge} from '../../../../recoil/src/index';
 
-interface ILoginProps{
-    location?: any;
-}
+import {ILoginProps} from '../../../interfaces/views/ILoginProps';
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
+@inject('authStore')
 @observer
 export default class Login extends React.Component<ILoginProps, {}>{
     render() {
+
+        let authStore = this.props.authStore;
 
         return (
             <Layer flexCenter className="text-center pt50" fill theme="light">

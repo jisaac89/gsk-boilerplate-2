@@ -14,4 +14,5 @@ export interface IPrescribeStore{
     updateInscription(inscription: string): void;
     confirmPrescription(): void;
     resetPrescriptionForm(): void;
+    deleteAllPrescriptions(): void;
 }
