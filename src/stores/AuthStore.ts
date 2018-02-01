@@ -142,6 +142,12 @@ export class AuthStore implements IAuthStore {
           .finally(action(() => { this.loading = false; }));
       }
 
+      @action logouta() {
+        appStore.setToken(undefined);
+        userStore.forgetUser();
+        return Promise.resolve();
+      }
+
 }
 
 export const authStore = new AuthStore();
