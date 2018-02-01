@@ -1,4 +1,4 @@
-import {observable, computed, autorun} from 'mobx';
+import {observable, computed, autorun, action} from 'mobx';
 
 import {appStore} from '../stores/_GlobalStore';
 
@@ -7,6 +7,10 @@ import {IAuthStore} from '../interfaces/stores/IAuthStore';
 import * as passwordHash from 'password-hash';
 
 import { IUser } from '../interfaces/data/IUser';
+
+import userStore from './UserStore';
+
+import agent from '../agent';
 
 export class AuthStore implements IAuthStore {
 
@@ -40,12 +44,12 @@ export class AuthStore implements IAuthStore {
         }, 1000);
     }
 
-    signout(cb) {
+    signout(cb? : ()=> void) {
         this.isAuthenticated = false
         this.user.email = '';
         this.user.password = '';
 
-        setTimeout(cb, 100)
+        cb ? setTimeout(cb, 100) : null;
     }
 
     setEmail(email){
@@ -57,7 +61,6 @@ export class AuthStore implements IAuthStore {
     }
 
     // register
-
 
 
     toggleRegistering(){
@@ -115,34 +118,30 @@ export class AuthStore implements IAuthStore {
         this.user.password = password;
     }
 
-    async login() {
-        let data = {
-            username: this.user.email,
-            password: this.user.password
-        };
+    // 
 
-        let urlString = '';
+    @action logina() {
+        this.loading = true;
+        return agent.Auth.login(this.user.email, this.user.password)
+          .then(({ user }) => appStore.setToken(user.token))
+          .then(() => userStore.pullUser())
+          .catch(action((err) => {
+            throw err;
+          }))
+          .finally(action(() => { this.loading = false; }));
+      }
+    
+      @action registera() {
+        this.loading = true;
+        return agent.Auth.register(this.user.email, this.user.password)
+          .then(({ user }) => appStore.setToken(user.token))
+          .then(() => userStore.pullUser())
+          .catch(action((err) => {
+            throw err;
+          }))
+          .finally(action(() => { this.loading = false; }));
+      }
 
-        let headers = new Headers();
-        headers.append('Content-Type', "application/x-www-form-urlencoded");
-        headers.append('Accept', 'application/json');
-
-        let url = `${urlString}`;
-        let result = await fetch(url, {
-            method: "POST",
-            headers: headers,
-            //  mode: 'cors',
-            credentials: "omit",
-            body: JSON.stringify(data)
-        });
-        let body = await result.json();
-        if (body && body.refresh_token) {
-            sessionStorage.setItem('login', JSON.stringify(body));
-            this.isAuthenticated = true;
-        }else{
-            alert('username or password incorrect');
-        }
-    }
 }
 
 export const authStore = new AuthStore();
