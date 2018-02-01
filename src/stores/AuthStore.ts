@@ -6,12 +6,7 @@ import {IAuthStore} from '../interfaces/stores/IAuthStore';
 
 import * as passwordHash from 'password-hash';
 
-export interface IUser{
-    email: string;
-    password: string;
-    group: 'doctor' | 'admin' | null;
-    companyCode: string;
-}
+import { IUser } from '../interfaces/data/IUser';
 
 export class AuthStore implements IAuthStore {
 
