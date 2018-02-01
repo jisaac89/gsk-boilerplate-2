@@ -2,20 +2,23 @@ import * as React from "react";
 import {withRouter} from "react-router-dom";
 
 import { Button, IButtonProps } from '../../../recoil/src/index';
-import { observer } from 'mobx-react';
-import { appStore } from '../../stores/_GlobalStore';
+import { observer, inject } from 'mobx-react';
+
+import {IAppStore} from '../../interfaces/stores/IAppStore';
 
 interface IRouterButton extends IButtonProps{
+    appStore: IAppStore;
     history: any;
     route: string;
     title?: string;
 }
 
+@inject('appStore')
 @observer
 class RouterButton extends React.Component<IRouterButton, any> {
 
   gotoRoute(route) {
-    appStore.menu = false;
+    this.props.appStore.menu = false;
     this.props.history.push(route);
   }
   render(){

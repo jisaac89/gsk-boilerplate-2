@@ -1,40 +1,43 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom'
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
 import { Button, IButtonProps, Toolbar, Input } from '../../../recoil/src/index';
 
-import {authStore, appStore} from '../../stores/_GlobalStore';
+import {IAuthStore} from '../../interfaces/stores/IAuthStore';
 
 interface IAuthProps{
+    authStore ?: IAuthStore;
     location?: any;
     state ?: any;
     pathname: any;
 }
 
+@inject('authStore')
 @observer
 export default class AuthLogin extends React.Component<IAuthProps, {}>{
 
     login = () => {
-        authStore.authenticate(() => {
-            authStore.redirectToReferrer = true;
+        this.props.authStore.authenticate(() => {
+            this.props.authStore.redirectToReferrer = true;
         })
     }
 
     setEmail(value){
-        authStore.setEmail(value);
+        this.props.authStore.setEmail(value);
     }
 
     setPassword(password){
-        authStore.setPassword(password);
+        this.props.authStore.setPassword(password);
     }
 
     toggleRegistering(){
-        authStore.toggleRegistering();
+        this.props.authStore.toggleRegistering();
     }
 
     render() {
+        const authStore = this.props.authStore;
         const { from } = this.props.location.state || { from: { pathname: '/' } }
         const { redirectToReferrer, user } = authStore;
 
