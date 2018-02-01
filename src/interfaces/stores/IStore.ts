@@ -3,4 +3,6 @@ export interface IStore{
     update(id : string, listItem: Object): void;
     del(id): void;
     clearAll(): void;
+    add(): void;
+    afterInit?(): void;
 }

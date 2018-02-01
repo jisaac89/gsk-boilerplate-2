@@ -36,7 +36,7 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
 
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } }
-        const { redirectToReferrer, user, password } = authStore;
+        const { redirectToReferrer, user } = authStore;
 
         if (redirectToReferrer === true) {
             <Redirect to={from} />
@@ -46,9 +46,9 @@ export default class AuthLogin extends React.Component<IAuthProps, {}>{
             <Toolbar textCenter block vertical spacing>
 
                 <Input advanced onChange={this.setEmail.bind(this)} block placeholder="Username" />
-                <Input type="password" advanced required={user && user.email !== '' && password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
+                <Input type="password" advanced required={user && user.email !== '' && user.password === ''} onChange={this.setPassword.bind(this)} block placeholder="Password" />
 
-                <Button disabled={user && user.email === '' || password === ''} theme={user && user.email === '' || password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
+                <Button disabled={user && user.email === '' || user.password === ''} theme={user && user.email === '' || user.password === '' ? "default" : "primary"} className="mb20" loading={authStore.loading} block onClick={this.login}>Log in</Button>
 
                 <Button disabled block outline size="small">Forgot your password?</Button>
                 <Button onClick={this.toggleRegistering.bind(this)} block outline size="small">Not a member? Join Today</Button>

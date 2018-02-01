@@ -2,6 +2,8 @@ import {observable, computed, ObservableMap, toJS} from 'mobx';
 
 import Store from './_Store';
 
+const _ROOT_API = 'http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.';
+
 export default abstract class BaseStore extends Store{
 
     ref: string;
@@ -21,14 +23,17 @@ export default abstract class BaseStore extends Store{
         self.loadNewPage();
     }
 
+    afterInit?() : void;
+
     loadNewPage() {
         const context = this;
         let urlString = this.ref;
-        fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.' + urlString).then(function(response) {
+        fetch(`${_ROOT_API}${urlString}`).then(function(response) {
             if (response){
                 response.json().then((data)=>{
                    context.loading = false;
                    context.list = data;
+                   context.afterInit ? context.afterInit() : null;
                 })
             }
         });
@@ -43,7 +48,7 @@ export default abstract class BaseStore extends Store{
 
         context.loading = true;
 
-        var request = new Request('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.' + urlString, {
+        var request = new Request(`${_ROOT_API}${urlString}`, {
             method: 'POST', 
             mode: 'cors', 
             redirect: 'follow',

@@ -7,4 +7,5 @@ export default abstract class Store implements IStore {
     abstract del(id : string) : void;
     abstract clearAll() : void;
     abstract add() : void;
-} 
+    afterInit?() : void;
+}

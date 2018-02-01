@@ -6,15 +6,17 @@ import {IAuthStore} from '../interfaces/stores/IAuthStore';
 
 export interface IUser{
     email: string;
+    password: string;
+    group: 'doctor' | 'admin' | null;
 }
 
 export class AuthStore implements IAuthStore {
 
     @observable user : IUser = {
-        email: ''
+        email: '',
+        password: '',
+        group: null
     }
-
-    @observable password : string = '';
 
     //
 
@@ -42,7 +44,7 @@ export class AuthStore implements IAuthStore {
     signout(cb) {
         this.isAuthenticated = false
         this.user.email = '';
-        this.password = '';
+        this.user.password = '';
 
         setTimeout(cb, 100)
     }
@@ -52,7 +54,7 @@ export class AuthStore implements IAuthStore {
     }
 
     setPassword(password){
-        this.password = password;
+        this.user.password = password;
     }
 
     toggleRegistering(){
@@ -62,7 +64,7 @@ export class AuthStore implements IAuthStore {
 
     resetRegisterUser(){
         this.user.email = '';
-        this.password = '';
+        this.user.password = '';
         this.isRegistered = false;
     }
 
