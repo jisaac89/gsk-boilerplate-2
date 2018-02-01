@@ -3,9 +3,7 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
-
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
+import { observer, inject } from 'mobx-react';
 
 import { IPrescribeProps } from '../../../interfaces/views/IPrescribeProps';
 
@@ -14,74 +12,75 @@ import SignatureCanvas from 'react-signature-canvas';
 import Intro from './Intro';
 import SelectPatient from './SelectPatient';
 
+@inject('prescribeStore', 'appStore')
 @observer
-export default class RefillOrCreate extends React.Component<{}, {}> {
+export default class RefillOrCreate extends React.Component<any, {}> {
 
   constructor(props) {
     super(props);
   }
 
   gotoSlideIndex(n: number) {
-    prescribeStore.gotoSlideIndex(n);
+    this.props.prescribeStore.gotoSlideIndex(n);
   }
 
   selectDrug(drug) {
-    prescribeStore.selectDrug(drug);
+    this.props.prescribeStore.selectDrug(drug);
   }
 
   selectIssueUnit(issueUnit) {
-    prescribeStore.selectIssueUnit(issueUnit);
+    this.props.prescribeStore.selectIssueUnit(issueUnit);
   }
 
   selectStartDate(date) {
-    prescribeStore.selectStartDate(date);
+    this.props.prescribeStore.selectStartDate(date);
   }
 
   selectEndDate(date) {
-    prescribeStore.selectEndDate(date);
+    this.props.prescribeStore.selectEndDate(date);
   }
 
   toggleEndDate() {
-    prescribeStore.toggleEndDate();
+    this.props.prescribeStore.toggleEndDate();
   }
 
   toggleRefill() {
-    prescribeStore.toggleRefill();
+    this.props.prescribeStore.toggleRefill();
   }
 
   gotoPrescribeIndex(index) {
-    prescribeStore.gotoPrescribeIndex(index);
+    this.props.prescribeStore.gotoPrescribeIndex(index);
   }
 
   updateInscription(inscription) {
-    prescribeStore.updateInscription(inscription);
+    this.props.prescribeStore.updateInscription(inscription);
   }
 
   confirmPrescription() {
-    prescribeStore.confirmPrescription();
+    this.props.prescribeStore.confirmPrescription();
   }
 
   toggleStartDateDropdown() {
-    prescribeStore.toggleStartDateDropdown();
+    this.props.prescribeStore.toggleStartDateDropdown();
   }
 
   toggleEndDateDropdown() {
-    prescribeStore.toggleEndDateDropdown();
+    this.props.prescribeStore.toggleEndDateDropdown();
   }
 
   selectDose(value) {
-    prescribeStore.selectDose(value)
+    this.props.prescribeStore.selectDose(value)
   }
 
   goBackToDashboard() {
-    prescribeStore.resetPrescriptionForm();
-    appStore.toggleMenu();
+    this.props.prescribeStore.resetPrescriptionForm();
+    this.props.appStore.toggleMenu();
   }
 
   render() {
-
+    let prescribeStore = this.props.prescribeStore;
     let { formIndex, selectedDrug, prescribeIndex, selectedDose, selectEndDateOpen, selectedIssueUnit, selectedPatient, selectedInscription, selectedStartDate, selectStartDateOpen, hasEndDate, refill } = prescribeStore;
-    let mobile = appStore.mobile;
+    let mobile = this.props.appStore.mobile;
 
     let menuTemplate = (item, index) => {
       return (

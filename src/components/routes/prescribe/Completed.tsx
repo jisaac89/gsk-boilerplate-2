@@ -3,15 +3,14 @@ import * as React from 'react';
 
 import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
-
+@inject('prescribeStore', 'appStore')
 @observer
-export default class Completed extends React.Component<{}, {}> {
+export default class Completed extends React.Component<any, {}> {
     goBackToDashboard(){
-        prescribeStore.resetPrescriptionForm(); 
-        appStore.toggleMenu();
+        this.props.prescribeStore.resetPrescriptionForm(); 
+        this.props.appStore.toggleMenu();
     }
     render() {
 

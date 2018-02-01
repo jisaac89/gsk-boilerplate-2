@@ -3,22 +3,21 @@ import * as React from 'react';
 
 import { Layer,Open, Emerge, Stepper,Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
-
+@inject('appStore', 'prescribeStore')
 @observer
-export default class Intro extends React.Component<{}, {}> {
+export default class Intro extends React.Component<any, {}> {
 
     gotoSlideIndex(n: number){
-        prescribeStore.gotoSlideIndex(n);
+        this.props.prescribeStore.gotoSlideIndex(n);
     }
 
     render() {
 
         return (
             <Layer fill  flexCenter>
-                <Emerge if={!appStore.menu}>
+                <Emerge if={!this.props.appStore.menu}>
                     <Layer className="p20">
                         <i className="material-icons super-xl mb20 floatL">highlight</i>
                         <h2 className="mb20">Prescribe medication</h2>

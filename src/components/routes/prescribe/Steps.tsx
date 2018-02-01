@@ -3,18 +3,19 @@ import * as React from 'react';
 
 import { Layer,Open, Emerge, Stepper,Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
-
+@inject('prescribeStore')
 @observer
-export default class Steps extends React.Component<{}, {}> {
+export default class Steps extends React.Component<any, {}> {
 
     gotoSlideIndex(n: number){
-        prescribeStore.gotoSlideIndex(n);
+        this.props.prescribeStore.gotoSlideIndex(n);
     }
 
     render() {
+
+        let prescribeStore = this.props.prescribeStore;
 
         return (
             <Layer className="p10 dark border-top w100 center-width">

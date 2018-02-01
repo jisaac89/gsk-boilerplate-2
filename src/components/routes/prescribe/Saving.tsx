@@ -1,11 +1,9 @@
 
 import * as React from 'react';
 
-import { Layer,Open, Emerge, Stepper,Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
+import { Layer, Emerge, Loading } from '../../../../recoil/src/index';
 
 import { observer } from 'mobx-react';
-
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
 
 @observer
 export default class Saving extends React.Component<{}, {}> {

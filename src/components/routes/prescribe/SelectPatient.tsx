@@ -3,24 +3,25 @@ import * as React from 'react';
 
 import { Layer,Open, Emerge, Stepper,Loading, Table, Button, Wizard, Toolbar, Dropdown, DatePicker, Toggle, Input } from '../../../../recoil/src/index';
 
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import {IPatient} from '../../../interfaces/data/IPatient';
 
-import { appStore, prescribeStore, patientsStore } from '../../../stores/_GlobalStore';
-
+@inject('prescribeStore', 'patientsStore')
 @observer
-export default class SelectPatient extends React.Component<{}, {}> {
+export default class SelectPatient extends React.Component<any, {}> {
     
     selectPatient(patient: IPatient){
-        prescribeStore.selectPatient(patient.firstName);
+        this.props.prescribeStore.selectPatient(patient.firstName);
     }
 
     gotoSlideIndex(n: number){
-        prescribeStore.gotoSlideIndex(n);
+        this.props.prescribeStore.gotoSlideIndex(n);
     }
 
     render() {
+        let prescribeStore = this.props.prescribeStore;
+        let patientsStore = this.props.patientsStore;
         let {selectedPatient} = prescribeStore;
         let columnsTemplate = (item, index) =>{
             return <Button className="ps20" block simple size="large">{item.firstName}</Button>;

@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import {Recoil, Layer} from '../../../../recoil/src/index';
 
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
-import {appStore} from '../../../stores/_GlobalStore';
-
+@inject('appStore')
 @observer
 export default class Dashboard extends React.Component<any, any> {
 
@@ -14,10 +13,10 @@ export default class Dashboard extends React.Component<any, any> {
     }
 
     componentDidMount(){
-        appStore.menu = true;
+        this.props.appStore.menu = true;
     }
 
     render() {
         return null;
     } 
-} 
+}
