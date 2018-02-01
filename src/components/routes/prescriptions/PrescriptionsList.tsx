@@ -4,7 +4,7 @@ import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, 
 
 import { observer, inject } from 'mobx-react';
 
-import {IPrescriptionsProps} from '../../../interfaces/views/IPrescriptionsProps';
+import {IPrescriptionsProps} from '../../../interfaces/views/prescriptions/IPrescriptionsProps';
 
 @inject('prescriptionsStore', 'appStore', 'prescribeStore')
 @observer

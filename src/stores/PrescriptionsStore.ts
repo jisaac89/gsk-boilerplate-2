@@ -11,10 +11,6 @@ export class PrescriptionsStore {
     @observable slideIndex: number = 0;
     @observable selectedPrescription : IPrescription = {}
     @observable viewHistory : boolean = false;
-  
-    constructor(){
-       
-    }
 
     gotoSlideIndex(n: number){
         this.slideIndex = n;

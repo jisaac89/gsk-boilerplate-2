@@ -4,7 +4,7 @@ import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, 
 
 import { observer, inject } from 'mobx-react';
 
-import { IPrescribeProps } from '../../../interfaces/views/IPrescribeProps';
+import { IPrescribeProps } from '../../../interfaces/views/prescribe/IPrescribeProps';
 
 import SignatureCanvas from 'react-signature-canvas';
 

@@ -8,7 +8,7 @@ import { AuthButton } from '../../helpers/AuthButton';
 
 import {Toolbar, Layer, Emerge} from '../../../../recoil/src/index';
 
-import {ILoginProps} from '../../../interfaces/views/ILoginProps';
+import {ILoginProps} from '../../../interfaces/views/auth/ILoginProps';
 
 import {observer, inject} from 'mobx-react';
 

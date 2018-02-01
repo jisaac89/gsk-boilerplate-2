@@ -18,7 +18,14 @@ import Dashboard from './routes/dashboard/Dashboard';
 import Prescribe from './routes/prescribe/_Prescribe';
 import Prescriptions from './routes/prescriptions/_Prescriptions';
 
-import {IEntryProps} from '../interfaces/views/IEntryProps';
+import {IAppStore} from '../interfaces/stores/IAppStore';
+import {IAuthStore} from '../interfaces/stores/IAuthStore';
+
+export interface IEntryProps{
+    appStore ?: IAppStore;
+    authStore ?: IAuthStore; 
+    history?: Object;
+}
 
 @inject('appStore', 'authStore')
 @observer
