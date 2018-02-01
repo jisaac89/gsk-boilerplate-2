@@ -4,10 +4,13 @@ import {appStore} from '../stores/_GlobalStore';
 
 import {IAuthStore} from '../interfaces/stores/IAuthStore';
 
+import * as passwordHash from 'password-hash';
+
 export interface IUser{
     email: string;
     password: string;
     group: 'doctor' | 'admin' | null;
+    companyCode: string;
 }
 
 export class AuthStore implements IAuthStore {
@@ -15,7 +18,8 @@ export class AuthStore implements IAuthStore {
     @observable user : IUser = {
         email: '',
         password: '',
-        group: null
+        group: null,
+        companyCode: ''
     }
 
     //
@@ -57,6 +61,10 @@ export class AuthStore implements IAuthStore {
         this.user.password = password;
     }
 
+    // register
+
+
+
     toggleRegistering(){
         this.isRegistering = !this.isRegistering;
         this.resetRegisterUser();
@@ -70,12 +78,46 @@ export class AuthStore implements IAuthStore {
 
     register() {
         
+        let context = this;
         this.loading = true;
+        let urlString = '';
         
-        setTimeout(()=>{
-            this.isRegistered = true;
-            this.loading = false;
-        }, 1000);
+        // setTimeout(()=>{
+        //     this.isRegistered = true;
+        //     this.loading = false;
+        // }, 1000);
+
+        this.user.password = passwordHash.generate(this.user.password);
+
+        var request = new Request(`${urlString}`, {
+            method: 'POST', 
+            mode: 'cors', 
+            redirect: 'follow',
+            body: JSON.stringify(context.user),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        });
+
+        fetch(request).then(function(response) {
+          return response.json();
+        }).then(function(data) {
+            console.log(data);
+            context.loading = false;
+        });
+
+    }
+
+    onChangeCompanyCode(companyCode){
+        this.user.companyCode = companyCode;
+    }
+
+    onChangeEmail(email){
+        this.user.email = email;
+    }
+
+    onChangePassword(password){
+        this.user.password = password;
     }
 }
 
