@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import routes from '../routes';
+import api from '../api';
 
 class UserStore {
 
@@ -10,14 +10,14 @@ class UserStore {
 
   @action pullUser() {
     this.loadingUser = true;
-    return routes.Auth.current()
+    return api.Auth.current()
       .then(action(({ user }) => { this.currentUser = user; }))
       .finally(action(() => { this.loadingUser = false; }))
   }
 
   @action updateUser(newUser) {
     this.updatingUser = true;
-    return routes.Auth.save(newUser)
+    return api.Auth.save(newUser)
       .then(action(({ user }) => { this.currentUser = user; }))
       .finally(action(() => { this.updatingUser = false; }))
   }
@@ -26,6 +26,6 @@ class UserStore {
     this.currentUser = undefined;
   }
 
-}
-
+} 
+ 
 export default new UserStore();

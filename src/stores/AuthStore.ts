@@ -10,7 +10,7 @@ import { IUser } from '../interfaces/data/IUser';
 
 import userStore from './UserStore';
 
-import routes from '../routes';
+import api from '../api';
 
 export class AuthStore implements IAuthStore {
 
@@ -122,7 +122,7 @@ export class AuthStore implements IAuthStore {
 
     @action logina() {
         this.loading = true;
-        return routes.Auth.login(this.user.email, this.user.password)
+        return api.Auth.login(this.user.email, this.user.password)
           .then(({ user }) => appStore.setToken(user.token))
           .then(() => userStore.pullUser())
           .catch(action((err) => {
@@ -133,7 +133,7 @@ export class AuthStore implements IAuthStore {
     
       @action registera() {
         this.loading = true;
-        return routes.Auth.register(this.user.email, this.user.password)
+        return api.Auth.register(this.user.email, this.user.password)
           .then(({ user }) => appStore.setToken(user.token))
           .then(() => userStore.pullUser())
           .catch(action((err) => {
