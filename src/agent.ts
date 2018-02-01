@@ -1,11 +1,11 @@
 import * as superagentPromise from 'superagent-promise';
-import {_superagent} from 'superagent';
+import * as _superagent from 'superagent';
 import {appStore} from './stores/AppStore';
 import {authStore} from './stores/AuthStore';
 
 let global : any;
 
-const superagent = superagentPromise(_superagent, global.Promise);
+const superagent = superagentPromise(_superagent, Promise);
 
 const API_ROOT = 'http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.';
 
