@@ -114,6 +114,35 @@ export class AuthStore implements IAuthStore {
     onChangePassword(password){
         this.user.password = password;
     }
+
+    async login() {
+        let data = {
+            username: this.user.email,
+            password: this.user.password
+        };
+
+        let urlString = '';
+
+        let headers = new Headers();
+        headers.append('Content-Type', "application/x-www-form-urlencoded");
+        headers.append('Accept', 'application/json');
+
+        let url = `${urlString}`;
+        let result = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            //  mode: 'cors',
+            credentials: "omit",
+            body: JSON.stringify(data)
+        });
+        let body = await result.json();
+        if (body && body.refresh_token) {
+            sessionStorage.setItem('login', JSON.stringify(body));
+            this.isAuthenticated = true;
+        }else{
+            alert('username or password incorrect');
+        }
+    }
 }
 
 export const authStore = new AuthStore();
