@@ -15,9 +15,9 @@ class UserStore {
       .finally(action(() => { this.loadingUser = false; }))
   }
 
-  @action updateUser(newUser) {
+  @action updateUser(email, newUser) {
     this.updatingUser = true;
-    return api.Auth.save(newUser)
+    return api.Auth.save(email, newUser)
       .then(action(({ user }) => { this.currentUser = user; }))
       .finally(action(() => { this.updatingUser = false; }))
   }

@@ -1,4 +1,4 @@
-import {IStore} from '../interfaces/stores/IStore';
+import {IStore} from '../interfaces/stores/_IStore';
 
 export default abstract class Store implements IStore {
     constructor(protected ref: string) { }

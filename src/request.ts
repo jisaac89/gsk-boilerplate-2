@@ -7,7 +7,7 @@ let global : any;
 
 const superagent = superagentPromise(_superagent, Promise);
 
-const API_ROOT = '';
+const API_ROOT = 'http://ec2-35-169-99-210.compute-1.amazonaws.com:5984/';
 
 const encode = encodeURIComponent;
 
@@ -48,7 +48,8 @@ export const requests = {
   post: (url, body) =>
     superagent
       .post(`${API_ROOT}${url}`, body)
+      .withCredentials()
       .use(tokenPlugin)
       .end(handleErrors)
-      .then(responseBody),
+      .then(responseBody)
 };

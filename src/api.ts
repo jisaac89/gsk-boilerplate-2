@@ -1,14 +1,21 @@
 import {requests} from './request';
 
+let Doctor  = (email, password)  =>{
+  return {
+    email : email,
+    password: password
+  } 
+}
+
 const Auth = {
   current: () =>
     requests.get('/user'),
   login: (email, password) =>
-    requests.post('/users/login', { user: { email, password } }),
+    requests.post('/loginhcp', Doctor(email, password)),
   register: (email, password) =>
-    requests.post('/users', { user: { email, password } }),
-  save: user =>
-    requests.put('/user', { user })
+    requests.put('/doctor/'+email, Doctor(email, password)),
+  save: (email, user) =>
+    requests.put('/patients/'+email, user)
 };
 
 const Prescriptions = {

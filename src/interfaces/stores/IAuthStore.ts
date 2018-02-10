@@ -1,22 +1,20 @@
-import { IUser } from "../data/IUser";
+import { IDoctor } from "../data/IDoctor";
 
 export interface IAuthStore{
+    user : IDoctor;
+    loading: boolean;
+    //
+    redirectToReferrer: boolean;
     isAuthenticated : boolean;
     authenticate(cb) : void;
     signout(cb) : void;
-    toggleRegistering(): void;
-    loading: boolean;
-    //
-    register() : void;
+    // register
     isRegistered: boolean;
     isRegistering : boolean;
-    onChangeCompanyCode(companyCode: string) : void;
-    onChangeEmail(email: string) : void;
-    onChangePassword(password: string) : void;
-    
+    register(): void;
+    toggleRegistering(): void;
     //
-    user : IUser;
-    redirectToReferrer: boolean;
-    setPassword(password: string);
-    setEmail(email: string); 
+    setCompanyCode(companyCode: string) : void;
+    setEmail(email: string) : void;
+    setPassword(password: string) : void;
 }
