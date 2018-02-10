@@ -4,7 +4,7 @@ import { Layer, Open, Emerge, Stepper, Loading, Table, Button, Wizard, Toolbar, 
 
 import { observer, inject } from 'mobx-react';
 
-import {IPrescriptionsProps} from '../../../interfaces/views/prescriptions/IPrescriptionsProps';
+import {IPrescriptionsProps} from '../../../interfaces/components/routes/prescriptions/IPrescriptionsProps';
 
 @inject('prescriptionsStore', 'appStore', 'prescribeStore')
 @observer
@@ -17,7 +17,7 @@ export default class PrescriptionsList extends React.Component<IPrescriptionsPro
     render() {
 
         let appStore = this.props.appStore;
-        let prescribeStore = this.props.prescribeStore;
+        let prescriptionsStore = this.props.prescriptionsStore;
 
         let menuTemplate = (item, index) => {
             return (
@@ -42,7 +42,7 @@ export default class PrescriptionsList extends React.Component<IPrescriptionsPro
                             <small>Select a patient to view a prescription in depth.</small>
                         </h1>
                         <div className="w100 ps20 center-width text-left">
-                            <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={!appStore.mobile ? defaultColumns : mobileColumns} dataSource={prescribeStore.list.reverse()} />
+                            <Table searchTitle={'Search by drug name or patient.'} searchableKeys={['drug', 'patient']} columns={!appStore.mobile ? defaultColumns : mobileColumns} dataSource={prescriptionsStore.list.reverse()} />
                         </div>
                     </Layer>
                 </Emerge>

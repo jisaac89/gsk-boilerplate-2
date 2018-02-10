@@ -1,4 +1,6 @@
-import {observable, computed, autorun} from 'mobx';
+import {observable, computed, autorun, action} from 'mobx';
+
+import api from '../api';
 
 import {appStore} from '../stores/_GlobalStore';
 
@@ -6,7 +8,9 @@ import BaseStore from './BaseStore';
 
 import {IPrescription} from '../interfaces/data/IPrescription';
 
-export class PrescriptionsStore {
+import {IPrescriptionsStore} from '../interfaces/stores/IPrescriptionsStore';
+
+export class PrescriptionsStore extends BaseStore implements IPrescriptionsStore {
 
     @observable slideIndex: number = 0;
     @observable selectedPrescription : IPrescription = {}
@@ -29,6 +33,34 @@ export class PrescriptionsStore {
 
     toggleViewHistory(){
         this.viewHistory = !this.viewHistory;
+    }
+
+    @action load() {
+        const self = this;
+        this.loading = true;
+        return api.Prescriptions.all().then((data) => {
+            if (data) {
+                self.loading = false;
+                self.list = data;
+            }
+        }).catch((data) => {
+            this.loading = false;
+            alert('An error occured.');
+            console.log(data);
+        });
+    }
+
+    deleteAllPrescriptions(){
+        const context = this;
+        this.list.forEach((element: any, index) => {
+            api.Prescriptions.delete(element.prescriptionuuid).then(function(response) {
+              return response;
+            }).then(function(data) {
+                if (index === context.list.length - 1){
+                    context.load();
+                }
+            });
+        });
     }
 
 }

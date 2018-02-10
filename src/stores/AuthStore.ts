@@ -37,6 +37,7 @@ export class AuthStore implements IAuthStore {
             this.loading = false;
             cb();
             appStore.menu = true;
+            appStore.initializeApp();
         }, 1000);
     }
 

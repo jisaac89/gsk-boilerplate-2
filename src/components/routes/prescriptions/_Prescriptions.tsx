@@ -7,7 +7,7 @@ import { observer, inject } from 'mobx-react';
 import PrescriptionsList from './PrescriptionsList';
 import SelectedPrescription from './SelectedPrescription';
 
-import {IPrescriptionsProps} from '../../../interfaces/views/prescriptions/IPrescriptionsProps';
+import {IPrescriptionsProps} from '../../../interfaces/components/routes/prescriptions/IPrescriptionsProps';
 
 @inject('prescriptionsStore')
 @observer

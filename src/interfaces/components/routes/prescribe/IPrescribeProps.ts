@@ -1,4 +1,4 @@
-import { IPrescribeStore } from "../../stores/IPrescribeStore";
+import { IPrescribeStore } from "../../../stores/IPrescribeStore";
 
 export interface IPrescribeProps{
     prescribeStore?: IPrescribeStore

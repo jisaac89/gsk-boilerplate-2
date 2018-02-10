@@ -7,18 +7,20 @@ import {observer, inject} from 'mobx-react';
 import RouterButton from '../helpers/RouterButton';
 import {AuthButton} from '../helpers/AuthButton';
 
-@inject('authStore', 'appStore', 'prescribeStore')
+import {IMenuPane} from '../../interfaces/components/navigation/IMenuPane';
+
+@inject('authStore', 'appStore', 'prescriptionsStore')
 @observer
-export default class MenuPane extends React.Component<any, any> {
+export default class MenuPane extends React.Component<IMenuPane, any> {
     deleteAllPrescriptions(){
-        this.props.prescribeStore.deleteAllPrescriptions();
+        this.props.prescriptionsStore.deleteAllPrescriptions();
     }
     render() {
 
         let {history} = this.props;
         let appStore = this.props.appStore;
-        let prescribeStore = this.props.prescribeStore;
         let user = this.props.authStore.user;
+        let prescriptionsStore = this.props.prescriptionsStore;
 
         return (
             <SlideIn className="z5" if={appStore.menu} from="top" fill>
@@ -32,7 +34,7 @@ export default class MenuPane extends React.Component<any, any> {
                             </div>
                             <Toolbar textCenter block className="w300px center-width" spacing vertical>
                                 <RouterButton block materialIcon size="large" theme="primary" history={history} icon="highlight" route="/prescribe" title="Prescribe medication" />
-                                {prescribeStore.list.length ? <RouterButton block materialIcon size="large" history={history} icon="sort" route="/prescriptions" title={prescribeStore.list.length + " Prescription(s)"} /> : null}
+                                {prescriptionsStore.list.length ? <RouterButton block materialIcon size="large" history={history} icon="sort" route="/prescriptions" title={prescriptionsStore.list.length + " Prescription(s)"} /> : null}
                                 <AuthButton buttonProps={{block: true, theme: 'default'}} />                            
                             </Toolbar>
                         </div>

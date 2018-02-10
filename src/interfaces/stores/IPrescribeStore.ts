@@ -1,5 +1,4 @@
 export interface IPrescribeStore{
-    list : Array<any>;
     slideIndex: number;
     gotoSlideIndex(n: number) : void;
     gotoFormIndex(n: number) : void;
@@ -14,5 +13,4 @@ export interface IPrescribeStore{
     updateInscription(inscription: string): void;
     confirmPrescription(): void;
     resetPrescriptionForm(): void;
-    deleteAllPrescriptions(): void;
 }

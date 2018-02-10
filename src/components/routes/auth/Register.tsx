@@ -6,7 +6,7 @@ import {observer, inject} from 'mobx-react';
 
 import { AuthButton } from '../../helpers/AuthButton';
 
-import {IRegisterProps} from '../../../interfaces/views/auth/IRegisterProps';
+import {IRegisterProps} from '../../../interfaces/components/routes/auth/IRegisterProps';
 
 @inject('authStore')
 @observer

@@ -1,30 +1,17 @@
+let global : any;
+
 import * as superagentPromise from 'superagent-promise';
 import * as _superagent from 'superagent';
-import {appStore} from './stores/AppStore';
-import {authStore} from './stores/AuthStore';
+import {appStore} from '../stores/AppStore';
+import {authStore} from '../stores/AuthStore';
 
-let global : any;
+import {tokenPlugin, handleErrors, responseBody} from '../utils/RequestHelpers';
 
 const superagent = superagentPromise(_superagent, Promise);
 
 const API_ROOT = 'http://ec2-35-169-99-210.compute-1.amazonaws.com:5984/';
 
 const encode = encodeURIComponent;
-
-const handleErrors = err => {
-  if (err && err.response && err.response.status === 401) {
-    authStore.signout();
-  }
-  return err;
-};
-
-const responseBody = res => res.body;
-
-const tokenPlugin = req => {
-  if (appStore.token) {
-    req.set('authorization', `Token ${appStore.token}`);
-  }
-};
 
 export const requests = {
   del: url =>

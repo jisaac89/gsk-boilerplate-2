@@ -1,4 +1,6 @@
-import {requests} from './request';
+import {requests} from './connections/request';
+import {hyperledger_requests} from './connections/hyperledger_request';
+import { IPrescription } from './interfaces/data/IPrescription';
 
 let Doctor  = (email, password)  =>{
   return {
@@ -20,15 +22,25 @@ const Auth = {
 
 const Prescriptions = {
   all: () =>
-    requests.get(`Prescriptions`)
+    hyperledger_requests.get(`Prescription`),
+  create: (prescription) => 
+    hyperledger_requests.post(`Prescription`, prescription),
+  delete: (prescriptionuuid : string) => 
+    hyperledger_requests.del(`Prescription/`+ prescriptionuuid)
 };
 
 const Patients = {
   all: () =>
-    requests.get(`Patients`)
+    hyperledger_requests.get(`Patient`)
+};
+
+const All = {
+  history: () =>
+    hyperledger_requests.getHistory()
 };
 
 export default {
+  All,
   Auth,
   Patients,
   Prescriptions

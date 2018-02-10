@@ -2,8 +2,7 @@ import {observable, computed, reaction, action} from 'mobx';
 
 import {IAppStore} from '../interfaces/stores/IAppStore';
 
-import {patientsStore} from './_GlobalStore';
-import { PatientsStore } from './PatientsStore';
+import {patientsStore, prescribeStore, prescriptionsStore} from './_GlobalStore';
 
 export class AppStore implements IAppStore {
     
@@ -19,7 +18,8 @@ export class AppStore implements IAppStore {
     @observable appLoaded = false;
 
     initializeApp() {
-        patientsStore.init();
+        patientsStore.load();
+        prescriptionsStore.load();
     }
   
     constructor() {

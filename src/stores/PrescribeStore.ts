@@ -1,26 +1,19 @@
-import {observable, computed, autorun} from 'mobx';
+import {observable, computed, autorun, action} from 'mobx';
 
 import {appStore, patientsStore, prescriptionsStore} from '../stores/_GlobalStore';
 import {IPrescribeStore} from '../interfaces/stores/IPrescribeStore';
 import BaseStore from './BaseStore';
 
-interface Prescription {
-    drug: string;
-    issueUnit: string;
-    startDate: Date;
-    endDate: Date;
-    refill : boolean;
-    patient: string;
-    inscription: string;
-}
+import api from '../api';
 
-export class PrescribeStore extends BaseStore implements IPrescribeStore {
+export class PrescribeStore implements IPrescribeStore {
     
     @observable slideIndex : number = 0;
     @observable formIndex : number = 0;
     @observable prescribeIndex : number = 0;
+    @observable loading : boolean = false;
 
-    //Inscription Object
+    //Prescription Object
 
     @observable selectedDrug : any = null;
     @observable selectedDose : string = '';
@@ -34,7 +27,6 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
 
     //
 
-    // @observable prescriptions : Prescription[] = [];
     @observable prescriptionComplete: boolean = false;
     @observable selectStartDateOpen : boolean = false;
     @observable selectEndDateOpen : boolean = false;
@@ -112,7 +104,7 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             this.gotoFormIndex(0);
         }, 8000);
 
-        prescribeStore.add();
+        this.create();
 
     }
 
@@ -158,7 +150,6 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
             owner : this.selectedPatient,
             prescriber: 'Dr.',
             inscription : this.selectedInscription,
-
             "$class": 'cloud.aperio.viiv.Prescription',
             "description": this.selectedInscription,
             "creatorreferencenumber": 'sample ref',
@@ -172,43 +163,18 @@ export class PrescribeStore extends BaseStore implements IPrescribeStore {
         return prescription;
     }
 
-    constructor(){
-        super('Prescription');
-        this.getPrescriptionHistory();
-    }
-
-    getPrescriptionHistory(){
-        fetch('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/system/historian').then(function(response) {
-            if (response){
-                response.json().then((data)=>{
-                    //    console.log(data);
-                })
+    @action create() {
+        this.loading = true;
+        return api.Prescriptions.create(this.addObject()).then((data) => {
+            if (data) {
+                this.loading = false;
+                prescriptionsStore.load();
             }
+        }).catch((data) => {
+            this.loading = false;
+            alert('An error occured.');
+            console.log(data);
         });
-    }
-
-    deleteAllPrescriptions(){
-        const context = this;
-        this.list.forEach((element: any, index) => {
-            var request = new Request('http://ec2-34-226-168-251.compute-1.amazonaws.com:3000/api/cloud.aperio.viiv.Prescription/' + element.prescriptionuuid,  {
-                method: 'DELETE', 
-                mode: 'cors', 
-                redirect: 'follow',
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            });
-    
-            fetch(request).then(function(response) {
-              return response;
-            }).then(function(data) {
-                if (index === context.list.length - 1){
-                    context.loadNewPage();
-                }
-            });
-        });
-
-        
     }
 }
 
